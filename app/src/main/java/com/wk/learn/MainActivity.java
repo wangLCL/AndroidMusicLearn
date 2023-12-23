@@ -42,4 +42,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,CanvasOptionActivity.class);
         startActivity(intent);
     }
+
+    public void drawPicture(View view) {
+        Intent intent = new Intent(this,DrawPictureAndText.class);
+        startActivity(intent);
+    }
+
+    public void basePath(View view) {
+        Intent intent = new Intent(this,PathActivity.class);
+        startActivity(intent);
+    }
 }
