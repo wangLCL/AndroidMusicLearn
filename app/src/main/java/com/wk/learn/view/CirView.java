@@ -54,6 +54,11 @@ public class CirView extends View {
                 postDelayed(this, 10); // 50毫秒后再次执行
             }
         }, 10);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }
 
@@ -85,5 +90,11 @@ public class CirView extends View {
             cirPath.lineTo(centerX, centerY);
             canvas.drawPath(cirPath, cirPaint);
         }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
     }
 }
