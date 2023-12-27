@@ -41,6 +41,9 @@
         <activity
             android:name=".DrawPictureAndText"
             android:exported="false" />
+        <activity android:name=".BezierActivity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

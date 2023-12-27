@@ -44,5 +44,12 @@
     </Button>
 
 
+    <Button
+        android:onClick="bezierPath"
+        android:text="贝塞尔曲线"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
 
 </LinearLayout>
