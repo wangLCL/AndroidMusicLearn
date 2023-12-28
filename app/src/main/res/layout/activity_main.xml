@@ -43,7 +43,6 @@
 
     </Button>
 
-
     <Button
         android:onClick="bezierPath"
         android:text="贝塞尔曲线"
@@ -52,4 +51,33 @@
 
     </Button>
 
+    <Button
+        android:onClick="optionCanvas"
+        android:text="贝塞尔曲线"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+        android:onClick="pieCanvas"
+        android:text="饼状图"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <Button
+        android:onClick="pictureDraw"
+        android:text="picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+    <!--    -->
+<!--    <com.wk.learn.PieView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"></com.wk.learn.PieView>-->
+<!--    -->
 </LinearLayout>

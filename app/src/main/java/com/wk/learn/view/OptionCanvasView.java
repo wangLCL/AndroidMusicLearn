@@ -2,13 +2,18 @@ package com.wk.learn.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 public class OptionCanvasView extends DrawView {
+    private float viewWidth;
+    private float viewHight;
     public OptionCanvasView(Context context) {
         super(context);
     }
@@ -19,10 +24,39 @@ public class OptionCanvasView extends DrawView {
     }
 
     @Override
-    protected void drawTest(Canvas canvas) {
-        translate(canvas);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        this.viewHight = h;
+        this.viewWidth = w;
+    }
 
-        scale(canvas);
+    @Override
+    protected void drawTest(Canvas canvas) {
+//        translate(canvas);
+
+//        rectDemo(canvas);
+//        scale(canvas);
+
+        strew(canvas);
+    }
+
+    private void strew(Canvas canvas) {
+        //错切
+    }
+
+    private void rectDemo(Canvas canvas) {
+        RectF rectF = new RectF(0,0,300,300);
+        canvas.drawRect(rectF,mPaint);
+
+        canvas.translate(viewWidth/2.0f,viewHight/2.0f);
+        rectF.set(50,50,150,150);
+        canvas.drawRect(rectF,mPaint);
+
+        mPaint.setColor(Color.WHITE);
+        //画布的中心点
+        canvas.rotate(20);
+        canvas.drawRect(rectF,mPaint);
+
 
     }
 

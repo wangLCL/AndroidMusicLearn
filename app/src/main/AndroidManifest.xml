@@ -18,6 +18,12 @@
         android:theme="@style/Theme.Learn"
         tools:targetApi="31">
         <activity
+            android:name=".PictureTextureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PieActivity"
+            android:exported="false" />
+        <activity
             android:name=".PathActivity"
             android:exported="false" />
         <activity
@@ -41,9 +47,9 @@
         <activity
             android:name=".DrawPictureAndText"
             android:exported="false" />
-        <activity android:name=".BezierActivity"
-            android:exported="false">
-        </activity>
+        <activity
+            android:name=".BezierActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

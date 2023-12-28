@@ -1,5 +1,16 @@
 pluginManagement {
     repositories {
+        maven {
+            url "https://mvnrepository.com/artifact/com.google.ads.mediation/fyber"
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+            name 'central'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name 'jcenter'
+        }
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -8,6 +19,17 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven {
+            url "https://mvnrepository.com/artifact/com.google.ads.mediation/fyber"
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+            name 'central'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+            name 'jcenter'
+        }
         google()
         mavenCentral()
     }

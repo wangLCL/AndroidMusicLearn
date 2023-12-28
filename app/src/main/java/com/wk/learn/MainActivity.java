@@ -57,4 +57,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,BezierActivity.class);
         startActivity(intent);
     }
+
+    public void pieCanvas(View view) {
+        Intent intent = new Intent(this,PieActivity.class);
+        startActivity(intent);
+    }
+
+    public void pictureDraw(View view) {
+        openActivity(PictureTextureActivity.class);
+    }
+
+    public void openActivity(Class clazz){
+        Intent intent = new Intent(this,clazz);
+        startActivity(intent);
+    }
 }

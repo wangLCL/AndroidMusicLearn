@@ -12,6 +12,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.wk.learn.R;
+
 public class DrawView extends View {
     protected Paint mPaint;
     private int splitLineColor = Color.WHITE;
@@ -60,8 +62,21 @@ public class DrawView extends View {
 
     }
 
-    private void drawArc(Canvas canvas) {
 
+    private void drawArc(Canvas canvas) {
+        RectF rect = new RectF(100,drawY,800,drawY+150);
+        mPaint.setColor(Color.RED);
+        canvas.drawRect(rect,mPaint);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.WHITE);
+//      startAngle   开始角度
+//      sweepAngle   扫过角度
+//      useCenter    是否使用中心
+        //不适应中心，就扫过面积，首尾相连
+        canvas.drawArc(rect,0,90,false,mPaint);
+        splitLine(canvas);
+        RectF rect1 = new RectF(100,drawY,800,drawY+150);
+        canvas.drawArc(rect1,0,90,true,mPaint);
         splitLine(canvas);
     }
 

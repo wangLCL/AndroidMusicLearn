@@ -1,6 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_canvas_option.xml" value="0.14685314685314685" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_option.xml" value="0.27898550724637683" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_path.xml" value="0.1" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_picture_texture.xml" value="0.20425724637681159" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/activity_pie.xml" value="0.19635416666666666" />
+        <entry key="..\:/AndroidCanvas/app/src/main/res/layout/draw_color_activity.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
