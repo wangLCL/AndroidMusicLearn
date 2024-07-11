@@ -36,3 +36,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Learn"
 include ':app'
+include ':UtilsLib'
