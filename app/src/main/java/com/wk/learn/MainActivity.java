@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.ApiUtils;
+import com.blankj.utilcode.util.ZipUtils;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AdaptScreenUtils
+        ZipUtils
 //        ActivityUtils.g
     }
 

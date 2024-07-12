@@ -12,6 +12,10 @@ public final class Utils {
         throw new UnsupportedOperationException("can't new instane");
     }
 
+    public static Application getsApp() {
+        return sApp;
+    }
+
     public static void init(final Application app){
         if (app == null){
             Log.e("utils","app is null");
