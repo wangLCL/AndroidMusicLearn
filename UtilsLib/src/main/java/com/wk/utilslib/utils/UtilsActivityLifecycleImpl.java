@@ -20,9 +20,6 @@ public class UtilsActivityLifecycleImpl implements Application.ActivityLifecycle
     private final List<Utils.OnAppStatusChangeListener> statusChangeListeners = new CopyOnWriteArrayList<>();
     private final Map<Activity,List<Utils.ActivityLifecleCallbacks>> activityListMap = new ConcurrentHashMap<>();
     private static final Activity STUB = new Activity();
-    private int mForegroundCount = 0;
-    private int mConfigCount = 0;
-    private boolean mIsBackground = false;
 
     void init(Application app){
         app.registerActivityLifecycleCallbacks(this);
@@ -34,21 +31,24 @@ public class UtilsActivityLifecycleImpl implements Application.ActivityLifecycle
     }
 
     Activity getTopActivity(){
-        List<Activity> activities = getTopActivity()
+//        List<Activity> activities = getTopActivity();
+        return null;
     }
 
     private List<Activity> getActivitiesByReflect(){
         LinkedList<Activity> list = new LinkedList<>();
         Activity topActivity = null;
         try {
-            getAc
+
         }catch (Exception e){
 
         }
+        return null;
     }
 
     private Object getActivityThread(){
         Object activityThread = getActivityThreadInActivityThreadStaticField();
+        return activityThread;
     }
 
     private Object getActivityThreadInActivityThreadStaticField(){
@@ -59,9 +59,9 @@ public class UtilsActivityLifecycleImpl implements Application.ActivityLifecycle
             declaredField.setAccessible(true);
             return declaredField.get(null);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
