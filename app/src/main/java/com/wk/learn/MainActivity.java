@@ -1,39 +1,22 @@
 package com.wk.learn;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
+import androidx.appcompat.widget.DecorContentParent;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.Utils;
+import com.blankj.utilcode.util.AdaptScreenUtils;
 
-import java.lang.reflect.Method;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        AdaptScreenUtils
+//        ActivityUtils.g
     }
 
     public void selfView(View view) {
