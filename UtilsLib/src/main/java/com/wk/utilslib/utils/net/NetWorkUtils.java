@@ -32,8 +32,6 @@ public class NetWorkUtils {
         );
     }
 
-
-
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     public static boolean isConnected(){
         NetworkInfo info = getActiveNetworkInfo();
