@@ -9,6 +9,10 @@ import android.view.View;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ApiUtils;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.RomUtils;
+import com.blankj.utilcode.util.ViewUtils;
+import com.blankj.utilcode.util.VolumeUtils;
 import com.blankj.utilcode.util.ZipUtils;
 
 
@@ -17,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ZipUtils
+//        RomUtils
+        NetworkUtils
+//        android.os.SystemProperties
 //        ActivityUtils.g
     }
 
