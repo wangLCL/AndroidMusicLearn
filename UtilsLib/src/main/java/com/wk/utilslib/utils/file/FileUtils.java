@@ -1,4 +1,4 @@
-package com.wk.utilslib.utils;
+package com.wk.utilslib.utils.file;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.StatFs;
 import android.text.TextUtils;
 
+import com.wk.utilslib.utils.Utils;
 import com.wk.utilslib.utils.string.StringUtils;
 
 import java.io.File;

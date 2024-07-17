@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ApiUtils;
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.RomUtils;
 import com.blankj.utilcode.util.ViewUtils;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        RomUtils
-        NetworkUtils
+        BarUtils
 //        android.os.SystemProperties
 //        ActivityUtils.g
     }

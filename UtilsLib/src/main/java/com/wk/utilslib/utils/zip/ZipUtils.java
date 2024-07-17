@@ -1,12 +1,11 @@
 package com.wk.utilslib.utils.zip;
 
-import com.wk.utilslib.utils.FileUtils;
+import com.wk.utilslib.utils.file.FileUtils;
 import com.wk.utilslib.utils.string.StringUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
