@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        BarUtils
+//        AppUtils
 //        getResources().getDisplayMetrics().widthPixels * 72f /
 //        AdaptScreenUtils;
 //        RomUtils
@@ -33,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.g
         //720  281.353
 
-        System.out.println(getResources().getDisplayMetrics().widthPixels);
-        System.out.println(getResources().getDisplayMetrics().xdpi);
+//        System.out.println(getResources().getDisplayMetrics().widthPixels);
+//        System.out.println(getResources().getDisplayMetrics().xdpi);
     }
 
     public void selfView(View view) {
         float density = getResources().getDisplayMetrics().density;
-
+        BarUtils.getStatusBarHeight();
         AdaptScreenUtils.adaptWidth(getResources(),720);
         Intent intent = new Intent(this,SelfActivity.class);
         startActivity(intent);

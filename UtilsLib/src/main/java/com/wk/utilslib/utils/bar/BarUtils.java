@@ -36,6 +36,11 @@ public class BarUtils {
         return resources.getDimensionPixelSize(resourceId);
     }
 
+    /**
+     * 显示 隐藏状态栏
+     * @param activity
+     * @param isVisible
+     */
     public static void setStatusBarVisibility(
             final Activity activity,
             final boolean isVisible
@@ -50,11 +55,35 @@ public class BarUtils {
         if (isVisible){
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             showStatusBarView(window);
+            addMarginTopEqualStatusBarHeight(window);
         }else {
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            hideStatusBarView(window);
 
         }
+    }
 
+
+
+    private static void addMarginTopEqualStatusBarHeight(Window window){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)return;
+        View viewWithTag = window.getDecorView().findViewWithTag(TAG_OFFSET);
+        if (viewWithTag == null)return;
+        addMarginTopEqualStatusBarHeight(viewWithTag);
+
+    }
+
+    private static void addMarginTopEqualStatusBarHeight(View view) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)return;
+        view.setTag(TAG_OFFSET);
+        Object haveSetOffset = view.getTag(KEY_OFFSET);
+        if (haveSetOffset != null && (Boolean) haveSetOffset) return;
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.setMargins(layoutParams.leftMargin,
+                layoutParams.topMargin + getStatusBarHeight(),
+                layoutParams.rightMargin,
+                layoutParams.bottomMargin);
+        view.setTag(KEY_OFFSET, true);
     }
 
     private static void hideStatusBarView(final Window window) {

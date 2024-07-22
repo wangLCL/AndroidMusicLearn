@@ -63,6 +63,8 @@ public class AdaptScreenUtils {
      * 如果我们修改了dpi,结果就会发生改变
      *
      * 适配可以直接通过修改dpi
+     *
+     * dp * dpi / 160
      * @param resources
      * @param designWidth
      * @return
@@ -104,6 +106,7 @@ public class AdaptScreenUtils {
 
     public static int pt2Px(final float ptValue) {
         DisplayMetrics metrics = Utils.getsApp().getResources().getDisplayMetrics();
+        //72.像素
         return (int) (ptValue * metrics.xdpi / 72f + 0.5);
     }
 
