@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.wk.utilslib.utils.listener.ActivityLifecleCallbacks;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -18,22 +20,22 @@ import java.util.List;
 
 public class ActivityUtils implements Application.ActivityLifecycleCallbacks {
     private Activity tempActivity = new Activity();
-    private HashMap<Activity, ArrayList<ActivityLifecycleCallBack>> activityArrayListHashMap;
-    public void addActivityLifeCycleCallBack(ActivityLifecycleCallBack activityLifecycleCallBack){
+    private HashMap<Activity, ArrayList<ActivityLifecleCallbacks>> activityArrayListHashMap;
+    public void addActivityLifecleCallbacks(ActivityLifecleCallbacks ActivityLifecleCallbacks){
         if (activityArrayListHashMap == null){
             activityArrayListHashMap = new HashMap<>();
         }
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(tempActivity);
-        if (activityLifecycleCallBacks == null){
-            activityLifecycleCallBacks = new ArrayList<>();
-            activityArrayListHashMap.put(tempActivity,activityLifecycleCallBacks);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(tempActivity);
+        if (ActivityLifecleCallbackss == null){
+            ActivityLifecleCallbackss = new ArrayList<>();
+            activityArrayListHashMap.put(tempActivity,ActivityLifecleCallbackss);
         }
-        activityLifecycleCallBacks.add(activityLifecycleCallBack);
+        ActivityLifecleCallbackss.add(ActivityLifecleCallbacks);
     }
 
-    public void removeActivityLifeCycleCallBack(ActivityLifecycleCallBack activityLifecycleCallBack){
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(tempActivity);
-        activityLifecycleCallBacks.remove(activityLifecycleCallBack);
+    public void removeActivityLifecleCallbacks(ActivityLifecleCallbacks ActivityLifecleCallbacks){
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(tempActivity);
+        ActivityLifecleCallbackss.remove(ActivityLifecleCallbacks);
     }
 
     /**
@@ -92,40 +94,40 @@ public class ActivityUtils implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityCreated(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityCreated(activity);
             }
         }
     }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityStarted(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityStared(activity);
             }
         }
     }
 
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityResumed(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityResumed(activity);
             }
         }
     }
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityPaused(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityPaused(activity);
             }
         }
 
@@ -133,10 +135,10 @@ public class ActivityUtils implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityStopped(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityStopped(activity);
             }
         }
 
@@ -150,10 +152,10 @@ public class ActivityUtils implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
-        ArrayList<ActivityLifecycleCallBack> activityLifecycleCallBacks = activityArrayListHashMap.get(activity);
-        if (activityLifecycleCallBacks!=null) {
-            for (ActivityLifecycleCallBack activityLifecycleCallBack : activityLifecycleCallBacks) {
-                activityLifecycleCallBack.onActivityDestroyed(activity);
+        ArrayList<ActivityLifecleCallbacks> ActivityLifecleCallbackss = activityArrayListHashMap.get(activity);
+        if (ActivityLifecleCallbackss!=null) {
+            for (ActivityLifecleCallbacks ActivityLifecleCallbacks : ActivityLifecleCallbackss) {
+                ActivityLifecleCallbacks.onActivityDestroyed(activity);
             }
         }
     }

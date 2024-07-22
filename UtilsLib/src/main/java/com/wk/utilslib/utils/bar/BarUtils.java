@@ -49,7 +49,7 @@ public class BarUtils {
             ){
         if (isVisible){
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+            showStatusBarView(window);
         }else {
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
