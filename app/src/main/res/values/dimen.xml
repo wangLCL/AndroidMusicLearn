@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <!--边缘填充-->
+    <dimen name="content_inset">3dp</dimen>
+</resources>

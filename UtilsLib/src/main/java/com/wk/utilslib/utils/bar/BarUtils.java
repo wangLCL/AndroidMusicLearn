@@ -45,7 +45,7 @@ public class BarUtils {
             final Activity activity,
             final boolean isVisible
             ){
-
+        setStatusBarVisibility(activity.getWindow(),isVisible);
     }
 
     public static void setStatusBarVisibility(
@@ -62,8 +62,6 @@ public class BarUtils {
 
         }
     }
-
-
 
     private static void addMarginTopEqualStatusBarHeight(Window window){
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)return;
