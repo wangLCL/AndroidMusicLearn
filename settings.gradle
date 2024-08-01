@@ -38,3 +38,4 @@ rootProject.name = "Learn"
 include ':app'
 include ':UtilsLib'
 include ':AteUtils'
+include ':DialogUtils'

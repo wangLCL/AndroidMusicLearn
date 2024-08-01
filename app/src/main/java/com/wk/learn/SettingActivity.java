@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SettingActivity extends AppCompatActivity {
+import com.wk.ateutils.ATEActivity;
+import com.wk.learn.fragment.SettingsFragment;
+
+public class SettingActivity extends ATEActivity implements ColorChoos {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
