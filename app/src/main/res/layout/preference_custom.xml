@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center_vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
-    <com.afollestad.appthemeenginesample.prefs.BorderCircleView
+    <com.wk.learn.preference.BorderCircleView
         android:id="@+id/circle"
         android:layout_width="32dp"
         android:layout_height="32dp"

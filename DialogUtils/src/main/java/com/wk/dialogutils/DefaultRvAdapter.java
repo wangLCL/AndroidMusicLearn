@@ -17,8 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wk.dialogutils.internal.MDTintHelper;
 import com.wk.dialogutils.utils.DialogUtils;
-import com.wk.dialogutils.utils.MDTintHelper;
 
 public class DefaultRvAdapter extends RecyclerView.Adapter<DefaultRvAdapter.DefaultVH> {
 

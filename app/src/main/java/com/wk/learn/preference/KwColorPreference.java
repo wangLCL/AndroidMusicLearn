@@ -5,6 +5,7 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.wk.ateutils.ATE;
 import com.wk.learn.R;
 
 public class KwColorPreference extends Preference {

@@ -1,11 +1,13 @@
 package com.wk.ateutils.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
 import com.wk.ateutils.ATE;
 
+@SuppressLint("AppCompatCustomView")
 public class ATEEditText extends EditText {
     public ATEEditText(Context context) {
         this(context,null);

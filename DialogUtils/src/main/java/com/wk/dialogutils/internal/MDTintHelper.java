@@ -1,4 +1,4 @@
-package com.wk.dialogutils.utils;
+package com.wk.dialogutils.internal;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,16 +19,18 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
-import com.wk.dialogutils.R;
+import com.wk.dialogutils.utils.DialogUtils;
 
 import java.lang.reflect.Field;
 
 public class MDTintHelper {
+
     public static void setTint(@NonNull RadioButton radioButton, @NonNull ColorStateList colors) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             radioButton.setButtonTintList(colors);
         } else {
-            Drawable radioDrawable = ContextCompat.getDrawable(radioButton.getContext(), androidx.appcompat.R.drawable.abc_btn_radio_material);
+            Drawable radioDrawable = ContextCompat.getDrawable(radioButton.getContext(),
+                    androidx.appcompat.R.drawable.abc_btn_radio_material);
             Drawable d = DrawableCompat.wrap(radioDrawable);
             DrawableCompat.setTintList(d, colors);
             radioButton.setButtonDrawable(d);
@@ -43,7 +45,7 @@ public class MDTintHelper {
                 new int[]{-android.R.attr.state_enabled, -android.R.attr.state_checked},
                 new int[]{-android.R.attr.state_enabled, android.R.attr.state_checked}
         }, new int[]{
-                DialogUtils.resolveColor(radioButton.getContext(), androidx.appcompat.R.attr.colorControlNormal),
+                DialogUtils.resolveColor(radioButton.getContext(),androidx.appcompat.R.attr.colorControlNormal),
                 color,
                 disabledColor,
                 disabledColor
@@ -55,7 +57,7 @@ public class MDTintHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             box.setButtonTintList(colors);
         } else {
-            Drawable checkDrawable = ContextCompat.getDrawable(box.getContext(), androidx.appcompat.R.drawable.abc_btn_check_material);
+            Drawable checkDrawable = ContextCompat.getDrawable(box.getContext(),androidx.appcompat.R.drawable.abc_btn_check_material);
             Drawable drawable = DrawableCompat.wrap(checkDrawable);
             DrawableCompat.setTintList(drawable, colors);
             box.setButtonDrawable(drawable);
@@ -137,7 +139,8 @@ public class MDTintHelper {
 
     private static void setCursorTint(@NonNull EditText editText, @ColorInt int color) {
         try {
-            @SuppressLint("SoonBlockedPrivateApi") Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+            @SuppressLint("SoonBlockedPrivateApi") Field fCursorDrawableRes = TextView.class
+                    .getDeclaredField("mCursorDrawableRes");
             fCursorDrawableRes.setAccessible(true);
             int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
             Field fEditor = TextView.class.getDeclaredField("mEditor");

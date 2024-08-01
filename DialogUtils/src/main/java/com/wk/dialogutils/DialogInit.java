@@ -24,7 +24,13 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
+import androidx.annotation.UiThread;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.wk.dialogutils.internal.MDAdapter;
+import com.wk.dialogutils.internal.MDButton;
+import com.wk.dialogutils.internal.MDRootLayout;
+import com.wk.dialogutils.internal.MDTintHelper;
 import com.wk.dialogutils.utils.DialogUtils;
 
 import java.util.ArrayList;
@@ -91,7 +97,8 @@ public class DialogInit {
         dialog.setCanceledOnTouchOutside(builder.canceledOnTouchOutside);
         if (builder.backgroundColor == 0)
             builder.backgroundColor = DialogUtils.resolveColor(builder.context, R.attr.md_background_color,
-                    DialogUtils.resolveColor(dialog.getContext(), R.attr.colorBackgroundFloating));
+                    DialogUtils.resolveColor(dialog.getContext(),
+                            androidx.appcompat.R.attr.colorBackgroundFloating));
         if (builder.backgroundColor != 0) {
             GradientDrawable drawable = new GradientDrawable();
             drawable.setCornerRadius(builder.context.getResources().getDimension(R.dimen.md_bg_corner_radius));
@@ -235,7 +242,8 @@ public class DialogInit {
         boolean textAllCaps;
         textAllCaps = DialogUtils.resolveBoolean(builder.context, android.R.attr.textAllCaps, true);
         if (textAllCaps)
-            textAllCaps = DialogUtils.resolveBoolean(builder.context, R.attr.textAllCaps, true);
+            textAllCaps = DialogUtils.resolveBoolean(builder.context,
+                    androidx.appcompat.R.attr.textAllCaps, true);
 
         MDButton positiveTextView = dialog.positiveButton;
         DialogUtils.setTypeface(positiveTextView, builder.mediumFont);
@@ -394,33 +402,33 @@ public class DialogInit {
         if (dialog.progressBar == null) {
             throw new AssertionError("Did not find progress view in a progress dialog");
         }
-
-        if (builder.indeterminateProgress) {
-            if (builder.horizontalProgress) {
-                IndeterminateHorizontalProgressDrawable d = new IndeterminateHorizontalProgressDrawable(builder.getContext());
-                d.setTint(builder.widgetColor);
-                dialog.progressBar.setProgressDrawable(d);
-                dialog.progressBar.setIndeterminateDrawable(d);
-            } else {
-                IndeterminateCircularProgressDrawable d = new IndeterminateCircularProgressDrawable(builder.getContext());
-                d.setTint(builder.widgetColor);
-                dialog.progressBar.setProgressDrawable(d);
-                dialog.progressBar.setIndeterminateDrawable(d);
-            }
-        } else {
-            if (builder.horizontalProgress) {
-                HorizontalProgressDrawable d = new HorizontalProgressDrawable(builder.getContext());
-                d.setTint(builder.widgetColor);
-                dialog.progressBar.setProgressDrawable(d);
-                dialog.progressBar.setIndeterminateDrawable(d);
-            } else {
-                CircularProgressDrawable d = new CircularProgressDrawable(MaterialProgressBar.DETERMINATE_CIRCULAR_PROGRESS_STYLE_DYNAMIC, builder.getContext());
-                d.setShowBackground(false);
-                d.setTint(builder.widgetColor);
-                dialog.progressBar.setProgressDrawable(d);
-                dialog.progressBar.setIndeterminateDrawable(d);
-            }
-        }
+//
+//        if (builder.indeterminateProgress) {
+//            if (builder.horizontalProgress) {
+//                IndeterminateHorizontalProgressDrawable d = new IndeterminateHorizontalProgressDrawable(builder.getContext());
+//                d.setTint(builder.widgetColor);
+//                dialog.progressBar.setProgressDrawable(d);
+//                dialog.progressBar.setIndeterminateDrawable(d);
+//            } else {
+//                IndeterminateCircularProgressDrawable d = new IndeterminateCircularProgressDrawable(builder.getContext());
+//                d.setTint(builder.widgetColor);
+//                dialog.progressBar.setProgressDrawable(d);
+//                dialog.progressBar.setIndeterminateDrawable(d);
+//            }
+//        } else {
+//            if (builder.horizontalProgress) {
+//                HorizontalProgressDrawable d = new HorizontalProgressDrawable(builder.getContext());
+//                d.setTint(builder.widgetColor);
+//                dialog.progressBar.setProgressDrawable(d);
+//                dialog.progressBar.setIndeterminateDrawable(d);
+//            } else {
+//                CircularProgressDrawable d = new CircularProgressDrawable(MaterialProgressBar.DETERMINATE_CIRCULAR_PROGRESS_STYLE_DYNAMIC, builder.getContext());
+//                d.setShowBackground(false);
+//                d.setTint(builder.widgetColor);
+//                dialog.progressBar.setProgressDrawable(d);
+//                dialog.progressBar.setIndeterminateDrawable(d);
+//            }
+//        }
 
         if (builder.indeterminateProgress) {
             dialog.progressBar.setIndeterminate(true);

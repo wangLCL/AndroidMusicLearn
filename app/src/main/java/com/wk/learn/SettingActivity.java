@@ -1,26 +1,32 @@
 package com.wk.learn;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
 import com.wk.ateutils.ATEActivity;
+import com.wk.dialogutils.color.ColorChooserDialog;
 import com.wk.learn.fragment.SettingsFragment;
 
-public class SettingActivity extends ATEActivity implements ColorChoos {
-
+public class SettingActivity extends ATEActivity implements ColorChooserDialog.ColorCallback {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        setSupportActionBar(findViewById(R.id.app_toolbar));
-//        当你希望在ActionBar（或Toolbar）中显示一个返回箭头时，可以通过调用 setDisplayHomeAsUpEnabled(true) 来实现
+        setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //尽量设置页面
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame,
                     new SettingsFragment()).commit();
+    }
+
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
+
     }
 }

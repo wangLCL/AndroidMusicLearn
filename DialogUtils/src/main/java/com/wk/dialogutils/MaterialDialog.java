@@ -24,10 +24,30 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.annotation.ArrayRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.UiThread;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wk.dialogutils.internal.MDButton;
+import com.wk.dialogutils.internal.MDRootLayout;
+import com.wk.dialogutils.internal.MDTintHelper;
+import com.wk.dialogutils.internal.ThemeSingleton;
+import com.wk.dialogutils.utils.DialogUtils;
+import com.wk.dialogutils.utils.RippleHelper;
+import com.wk.dialogutils.utils.TypefaceHelper;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -469,7 +489,7 @@ public class MaterialDialog extends DialogBase implements
                 final int materialBlue = DialogUtils.getColor(context, R.color.md_material_blue_600);
 
                 // Retrieve default accent colors, which are used on the action buttons and progress bars
-                this.widgetColor = DialogUtils.resolveColor(context, R.attr.colorAccent, materialBlue);
+                this.widgetColor = DialogUtils.resolveColor(context, androidx.appcompat.R.attr.colorAccent, materialBlue);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     this.widgetColor = DialogUtils.resolveColor(context, android.R.attr.colorAccent, this.widgetColor);
                 }
@@ -484,7 +504,7 @@ public class MaterialDialog extends DialogBase implements
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                     fallback = DialogUtils.resolveColor(context, android.R.attr.colorControlHighlight);
                 this.buttonRippleColor = DialogUtils.resolveColor(context, R.attr.md_btn_ripple_color,
-                        DialogUtils.resolveColor(context, R.attr.colorControlHighlight, fallback));
+                        DialogUtils.resolveColor(context, androidx.appcompat.R.attr.colorControlHighlight, fallback));
 
                 this.progressPercentFormat = NumberFormat.getPercentInstance();
                 this.progressNumberFormat = "%1d/%2d";
