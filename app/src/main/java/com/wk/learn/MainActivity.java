@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         @FloatRange(from = 0,to = 1)
-        int i = 10;
+        float i = 0;
 //        BarUtils
 //        AppUtils
 //        getResources().getDisplayMetrics().widthPixels * 72f /
@@ -88,5 +88,9 @@ public class MainActivity extends AppCompatActivity {
     public void openActivity(Class clazz){
         Intent intent = new Intent(this,clazz);
         startActivity(intent);
+    }
+
+    public void toSetting(View view) {
+        openActivity(SettingActivity.class);
     }
 }

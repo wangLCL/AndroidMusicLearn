@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Learn</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="accent_color">accent color</string>
+    <string name="primary_text_color">primary text color</string>
+    <string name="secondary_text_color">secondary text color</string>
 </resources>
