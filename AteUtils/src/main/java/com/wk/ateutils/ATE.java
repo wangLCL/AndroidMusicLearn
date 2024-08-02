@@ -6,9 +6,13 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
@@ -273,10 +277,32 @@ public class ATE {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static void applyTaskDescription(@NonNull Activity activity) {
         // Sets color of entry in the system recents page
+
+        Drawable icon = activity.getApplicationInfo().loadIcon(activity.getPackageManager());
+        Bitmap bitmap = null;
+        if (icon instanceof BitmapDrawable) {
+            bitmap = ((BitmapDrawable) icon).getBitmap();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (icon instanceof AdaptiveIconDrawable) {
+                // Convert AdaptiveIconDrawable to Bitmap
+                bitmap = Bitmap.createBitmap(icon.getIntrinsicWidth(), icon.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                icon.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                icon.draw(canvas);
+            } else {
+                // Handle other types of Drawables if needed
+                bitmap = null;
+            }
+        }
+
+        int primaryColor = Config.primaryColor(activity);
+// 确保颜色是不透明的
+        primaryColor = primaryColor | 0xFF000000;  // 设置alpha为255（完全不透明）
+
         ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(
                 (String) activity.getTitle(),
-                ((BitmapDrawable) activity.getApplicationInfo().loadIcon(activity.getPackageManager())).getBitmap(),
-                Config.primaryColor(activity));
+                bitmap,
+                primaryColor);
         activity.setTaskDescription(td);
     }
 

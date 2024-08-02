@@ -4,4 +4,12 @@
     <string name="accent_color">accent color</string>
     <string name="primary_text_color">primary text color</string>
     <string name="secondary_text_color">secondary text color</string>
+    <string name="primary_color_summary">primary color summary</string>
+    <string name="accent_color_summary">accent color summary</string>
+    <string name="primary_text_color_summary">primary text color summary</string>
+    <string name="secondary_text_color_summary">secondary text color summary</string>
+    <string name="colored_status_bar_summary">colored_status_bar_summary</string>
+    <string name="colored_status_bar">colored_status_bar</string>
+    <string name="colored_nav_bar_summary">colored_nav_bar_summary</string>
+    <string name="colored_nav_bar">colored_nav_bar</string>
 </resources>

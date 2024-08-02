@@ -242,7 +242,9 @@ public class Config {
 
     @ColorInt
     public static int primaryColor(@NonNull Context context) {
-        return prefs(context).getInt(KEY_PRIMARY_COLOR, Util.resolveColor(context, androidx.appcompat.R.attr.colorPrimary, Color.parseColor("#455A64")));
+        return prefs(context).getInt(KEY_PRIMARY_COLOR,
+                Util.resolveColor(context, androidx.appcompat.R.attr.colorPrimary,
+                        Color.parseColor("#455A64")));
     }
 
     @ColorInt

@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        @FloatRange(from = 0,to = 1)
-        float i = 0;
+//        @FloatRange(from = 0,to = 1)
+//        float i = 0;
 //        BarUtils
 //        AppUtils
 //        getResources().getDisplayMetrics().widthPixels * 72f /
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        System.out.println(getResources().getDisplayMetrics().widthPixels);
 //        System.out.println(getResources().getDisplayMetrics().xdpi);
+
+//        getBaseContext().getTheme().obtainStyledAttributes()
     }
 
     public void selfView(View view) {

@@ -6,11 +6,11 @@ import android.content.res.TypedArray;
 import androidx.annotation.AttrRes;
 
 public class Util {
-
     public static int resolveColor(Context context, @AttrRes int attr) {
         return resolveColor(context, attr, 0);
     }
 
+    //从主题中获取值
     public static int resolveColor(Context context, @AttrRes int attr, int fallback) {
         //获取指定属性的值
         TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{attr});

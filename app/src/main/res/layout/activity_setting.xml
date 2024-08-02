@@ -16,6 +16,11 @@
         app:contentInsetStart="@dimen/content_inset"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="UnusedAttribute" >
+        <!--
+        标记通常通过调用 setTag() 和 getTag() 方法来设置和获取。对于 android:tag="bg_primary_color"
+        这样在 XML 中定义的标记，如果需要在代码中使用，可以通过 view.getTag() 方法获取这个标记，并根据具体的应用逻辑进行处理。
+        -->
+
 <!--        ?actionBarSize 是一个指向应用主题中的尺寸资源的引用。-->
 <!--        在 Android 开发中，app:popupTheme="@style/ThemeOverlay.AppCompat.Light" 和 theme 的区别在于它们的作用对象和影响范围。-->
 <!--        Theme（主题）：-->
@@ -31,11 +36,11 @@
 
 <!--        总结来说，主题是全局的应用样式设置，而 ThemeOverlay 则是用于在特定视图或者视图组件上局部覆盖主题属性的一种机制。-->
 
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </androidx.appcompat.widget.Toolbar>
 
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

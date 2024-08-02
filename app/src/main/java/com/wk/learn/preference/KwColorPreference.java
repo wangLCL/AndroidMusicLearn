@@ -17,6 +17,10 @@ public class KwColorPreference extends Preference {
         this(context,null,0);
     }
 
+    public KwColorPreference(Context context,AttributeSet attributeSet){
+        this(context,attributeSet,0);
+    }
+
     public KwColorPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setLayoutResource(R.layout.preference_custom);
