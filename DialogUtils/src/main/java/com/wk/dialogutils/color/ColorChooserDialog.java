@@ -111,6 +111,10 @@ public class ColorChooserDialog
                 mColorChooserCustomFrame.getVisibility() == View.VISIBLE);
     }
 
+    /**
+     * 需要一个回调来接收点击效果
+     * @param activity
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -119,6 +123,10 @@ public class ColorChooserDialog
         mCallback = (ColorCallback) activity;
     }
 
+    /**
+     * 传入的参数
+     * @return
+     */
     private boolean isInSub() {
         return getArguments().getBoolean("in_sub", false);
     }

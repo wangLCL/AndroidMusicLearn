@@ -30,10 +30,8 @@ import androidx.core.view.ViewCompat;
 import com.wk.dialogutils.utils.DialogUtils;
 
 public class CircleView extends FrameLayout {
-
     private final int borderWidthSmall;
     private final int borderWidthLarge;
-
     private final Paint outerPaint;
     private final Paint whitePaint;
     private final Paint innerPaint;

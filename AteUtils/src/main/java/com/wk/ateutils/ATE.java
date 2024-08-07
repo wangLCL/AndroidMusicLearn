@@ -68,6 +68,12 @@ public class ATE {
 
     private static Class<?> didPreApply = null;
 
+    /**
+     * 根据target设置主题颜色
+     * @param context
+     * @param current
+     * @param tag
+     */
     private static void processTagPart(@NonNull Context context, @NonNull View current, @NonNull String tag) {
         switch (tag) {
             case KEY_BG_PRIMARY_COLOR:
@@ -163,6 +169,7 @@ public class ATE {
 
     private static void processTag(@NonNull Context context, @NonNull View current) {
         final String tag = (String) current.getTag();
+        //解析tag
         if (tag.contains(",")) {
             final String[] splitTag = tag.split(",");
             for (String part : splitTag)
@@ -391,7 +398,7 @@ public class ATE {
         if (by == 1f) return color;
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[2] *= by; // value component
+        hsv[2] *= by; // value component  亮度降低
         return Color.HSVToColor(hsv);
     }
 

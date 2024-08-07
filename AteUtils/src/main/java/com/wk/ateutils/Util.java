@@ -6,6 +6,12 @@ import android.content.res.TypedArray;
 import androidx.annotation.AttrRes;
 
 public class Util {
+    /**
+     * 从theme中得到颜色值
+     * @param context
+     * @param attr
+     * @return
+     */
     public static int resolveColor(Context context, @AttrRes int attr) {
         return resolveColor(context, attr, 0);
     }

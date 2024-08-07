@@ -44,6 +44,11 @@ public class TintHelper {
             throw new IllegalArgumentException("Tinting of view of type " + view.getClass().getName() + " is unsupported.");
     }
 
+    /**
+     * 单选
+     * @param radioButton
+     * @param color
+     */
     public static void setTint(@NonNull RadioButton radioButton, @ColorInt int color) {
 //        在这段代码中，确实有两组数据，它们分别是：
 //
@@ -67,6 +72,7 @@ public class TintHelper {
                     Util.resolveColor(radioButton.getContext(), R.attr.colorControlNormal),
                     color}
         );
+        //选中  和  不选中
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             radioButton.setButtonTintList(sl);
         } else {

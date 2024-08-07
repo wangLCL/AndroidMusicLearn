@@ -48,7 +48,13 @@ public class Config {
         mEditor = prefs(context).edit();
     }
 
+    /**
+     * 主颜色
+     * @param color
+     * @return
+     */
     public Config primaryColor(@ColorInt int color) {
+        //存储主颜色
         mEditor.putInt(KEY_PRIMARY_COLOR, color);
         if (autoGeneratePrimaryDark(mContext))
             primaryColorDark(ATE.darkenColor(color));

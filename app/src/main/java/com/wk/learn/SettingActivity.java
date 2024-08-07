@@ -124,10 +124,12 @@ public class SettingActivity extends ATEActivity implements ColorChooserDialog.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        //设置了一个toolbar
         setSupportActionBar((Toolbar) findViewById(R.id.app_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)
+            //设置里面的布局
             getFragmentManager().beginTransaction().replace(R.id.content_frame,
                     new SettingsFragment()).commit();
     }
@@ -135,6 +137,7 @@ public class SettingActivity extends ATEActivity implements ColorChooserDialog.C
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //返回键
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;

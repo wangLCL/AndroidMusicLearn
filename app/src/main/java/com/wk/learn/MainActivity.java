@@ -42,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
 //        System.out.println(getResources().getDisplayMetrics().xdpi);
 
 //        getBaseContext().getTheme().obtainStyledAttributes()
+
+
+        // 获取启动该 Activity 的 Intent
+        Intent intent = getIntent();
+
+        // 判断 Intent 的 action 是否是 MAIN，并且 category 包含 LAUNCHER
+        if (Intent.ACTION_MAIN.equals(intent.getAction()) && intent.hasCategory(Intent.CATEGORY_LAUNCHER)) {
+            // 表示是从应用图标点击启动的
+            // 可以在这里进行相应的处理
+            System.out.println("图标启动");
+        }
     }
 
     public void selfView(View view) {

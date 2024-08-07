@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import androidx.collection.SimpleArrayMap;
 
 public class TypefaceHelper {
-
+    //跟字体相关
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 
     public static Typeface get(Context c, String name) {

@@ -36,8 +36,10 @@ public class DialogUtils {
 
     @ColorInt
     public static int getDisabledColor(Context context) {
+        //theme中的取值
         final int primaryColor = resolveColor(context, android.R.attr.textColorPrimary);
         final int disabledColor = isColorDark(primaryColor) ? Color.BLACK : Color.WHITE;
+
         return adjustAlpha(disabledColor, 0.3f);
     }
 
@@ -184,6 +186,14 @@ public class DialogUtils {
         }
     }
 
+    /***
+     * 从theme中取参数    用完回收
+     *
+     * @param context
+     * @param attr
+     * @param fallback
+     * @return
+     */
     public static boolean resolveBoolean(Context context, @AttrRes int attr, boolean fallback) {
         TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{attr});
         try {
@@ -197,6 +207,30 @@ public class DialogUtils {
         return resolveBoolean(context, attr, false);
     }
 
+    /**
+     * 这段代码是用来判断一个颜色在视觉上是不是暗色的。让我解释一下这个方法的实现：
+     *
+     * java
+     * public static boolean isColorDark(@ColorInt int color) {
+     *     // 获取颜色的红色、绿色和蓝色分量
+     *     int red = Color.red(color);
+     *     int green = Color.green(color);
+     *     int blue = Color.blue(color);
+     *
+     *     // 根据颜色分量计算亮度
+     *     double darkness = 1 - (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+     *
+     *     // 返回亮度是否小于0.5，即颜色是否较暗
+     *     return darkness >= 0.5;
+     * }
+     * 这个方法的核心是利用颜色的红、绿、蓝三个分量计算出一个亮度值 darkness。具体的计算方法是根据人眼对不同颜色分量的感知权重（红色0.299、绿色0.587、蓝色0.114），将每个分量乘以相应的权重后相加，然后除以255（即最大颜色值）来归一化到0到1之间的范围。然后，用1减去这个值，得到的就是一个表示颜色暗度的值 darkness。
+     *
+     * 最后，判断 darkness 是否大于等于0.5，如果是则返回 true，表示颜色较暗；否则返回 false，表示颜色较亮。
+     *
+     * 这种方法在界面设计中常用来根据背景颜色来选择合适的文字颜色，以确保足够的对比度和可读性。
+     * @param color
+     * @return
+     */
     public static boolean isColorDark(@ColorInt int color) {
         double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
         return darkness >= 0.5;

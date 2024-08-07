@@ -28,10 +28,5 @@ public class BezierView extends DrawView {
         //三阶  cubicTo
         path.quadTo(100,300,19,10);
         canvas.drawPath(path, mPaint);
-
-        //相对位置
-//        rMoveTo, rLineTo, rQuadTo, rCubicTo没有r那是绝对位置
-
-        //重叠重点看一下
     }
 }

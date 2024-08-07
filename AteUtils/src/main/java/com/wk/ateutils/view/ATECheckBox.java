@@ -26,7 +26,7 @@ public class ATECheckBox extends AppCompatCheckBox {
     }
 
     private void init(Context context){
-        setTag("tint_accent_color");
+        setTag("tint_accent_color"); //指定tag 然后去设置
         ATE.apply(context,this);
     }
 }
