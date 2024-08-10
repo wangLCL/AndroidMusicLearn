@@ -55,6 +55,7 @@
             android:name=".BezierActivity"
             android:exported="false" />
         <activity android:name=".DrawLayoutActivity"
+            android:theme="@style/AppTheme.FullScreen.Light"
             android:exported="false">
 
         </activity>
