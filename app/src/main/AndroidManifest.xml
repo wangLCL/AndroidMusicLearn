@@ -54,6 +54,10 @@
         <activity
             android:name=".BezierActivity"
             android:exported="false" />
+        <activity android:name=".DrawLayoutActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>

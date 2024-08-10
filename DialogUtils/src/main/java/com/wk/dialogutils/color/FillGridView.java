@@ -21,6 +21,7 @@ public class FillGridView extends GridView {
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //不超过此值   也就是任意大
         int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
                 View.MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);

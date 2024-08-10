@@ -12,4 +12,11 @@
     <string name="colored_status_bar">colored_status_bar</string>
     <string name="colored_nav_bar_summary">colored_nav_bar_summary</string>
     <string name="colored_nav_bar">colored_nav_bar</string>
+    <string name="library">library</string>
+    <string name="playlists">playlists</string>
+    <string name="folders">folders</string>
+    <string name="playing_queue">playing_queue</string>
+    <string name="now_playing">now_playing</string>
+    <string name="settings">settings</string>
+    <string name="about">about</string>
 </resources>

@@ -1,16 +1,14 @@
 package com.wk.learn;
 
-import android.app.LauncherActivity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BezierActivity extends AppCompatActivity {
+public class DrawLayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bezier);
-
+        setContentView(R.layout.draw_layout_main);
     }
 }
