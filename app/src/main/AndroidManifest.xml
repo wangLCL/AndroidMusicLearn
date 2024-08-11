@@ -16,28 +16,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Learn"
+        android:theme="@style/AppThemeLight"
         tools:targetApi="31">
+
         <activity
-            android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PictureTextureActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PieActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PathActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CanvasOptionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SelfActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".DrawLayoutActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,20 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DrawColorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DrawPictureAndText"
-            android:exported="false" />
-        <activity
-            android:name=".BezierActivity"
-            android:exported="false" />
-        <activity android:name=".DrawLayoutActivity"
-            android:theme="@style/AppTheme.FullScreen.Light"
-            android:exported="false">
 
-        </activity>
     </application>
 
 </manifest>
