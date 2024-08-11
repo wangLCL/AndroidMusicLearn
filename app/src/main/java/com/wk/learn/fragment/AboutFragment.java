@@ -11,8 +11,6 @@ import com.wk.learn.fragment.base.BaseFragment;
 public class AboutFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
-         TextView textView = findById(R.id.fragment_text);
-         textView.setText(TAG);
     }
 
     @Override
