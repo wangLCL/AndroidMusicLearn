@@ -49,7 +49,7 @@ public abstract class BaseFragment extends Fragment {
         initView(view);
     }
 
-    private void initToolBar() {
+    protected void initToolBar() {
         Toolbar toolbar = findById(R.id.app_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
