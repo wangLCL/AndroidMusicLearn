@@ -15,7 +15,7 @@
             android:id="@+id/app_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:titleTextAppearance="?attr/toolbarStyle">
+            app:titleTextColor="@color/white">
 
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextColor="@color/white"
-            app:tabSelectedTextColor="@color/black">
+            app:tabSelectedTextColor="@color/colorSelectableItemWhite"
+            >
 
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
