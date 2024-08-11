@@ -14,6 +14,9 @@ import com.wk.learn.R;
 import com.wk.learn.fragment.MainFragment;
 
 public abstract class BaseFragment extends Fragment {
+
+    protected final String TAG = getClass().getSimpleName();
+    private View rootView;
     public Fragment newInstanceAndShow(AppCompatActivity activity) {
         Fragment fragment = getFragment();
         activity.getSupportFragmentManager()
@@ -26,14 +29,14 @@ public abstract class BaseFragment extends Fragment {
 
     public Fragment newInstance() {
 //        activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_root,fragment);
-        return getFragment();
+        return this;
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(getFragmentView(), container, false);
+        return rootView = inflater.inflate(getFragmentView(), container, false);
     }
 
     @Override
@@ -47,4 +50,8 @@ public abstract class BaseFragment extends Fragment {
     protected abstract Fragment getFragment();
 
     protected abstract int getFragmentView();
+
+    protected <T extends View>  T findById(int id){
+        return rootView.findViewById(id);
+    }
 }

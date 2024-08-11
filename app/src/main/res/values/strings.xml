@@ -19,4 +19,6 @@
     <string name="now_playing">now_playing</string>
     <string name="settings">settings</string>
     <string name="about">about</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
