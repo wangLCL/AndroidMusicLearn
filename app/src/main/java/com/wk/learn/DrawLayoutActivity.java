@@ -48,11 +48,9 @@ public class DrawLayoutActivity extends AppCompatActivity {
         View headerView = navView.inflateHeaderView(R.layout.nav_header);
         ImageView imageView = headerView.findViewById(R.id.album_art);
         imageView.setImageResource(R.drawable.ic_empty_music2);
-
         //设置nav的图标
         setNavIcon(navView);
         setNavListener(navView);
-
     }
 
     private void setNavListener(NavigationView navView) {
