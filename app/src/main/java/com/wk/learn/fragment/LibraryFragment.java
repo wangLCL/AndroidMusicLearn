@@ -33,7 +33,7 @@ public class LibraryFragment extends BaseFragment {
 
         ViewpaperPageAdpter pageAdpter = new ViewpaperPageAdpter(getFragmentManager());
         pageAdpter.addFragment(new SongListFragment(),"歌曲");
-        pageAdpter.addFragment(new AlistListFragment(),"setting");
+        pageAdpter.addFragment(new AlistListFragment(),"专辑");
         pageAdpter.addFragment(new ArtListFragment(),"about");
         viewPager.setAdapter(pageAdpter);
     }

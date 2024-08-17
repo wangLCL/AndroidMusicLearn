@@ -21,6 +21,6 @@ public class PlayListsFragment extends BaseFragment {
 
     @Override
     protected int getFragmentView() {
-        return R.layout.fragment_library;
+        return R.layout.fragment_plist;
     }
 }

@@ -26,6 +26,6 @@ public class FoldersFragment extends BaseFragment {
 
     @Override
     protected int getFragmentView() {
-        return R.layout.fragment_library;
+        return R.layout.fragment_folder;
     }
 }

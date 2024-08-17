@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected final String TAG = getClass().getSimpleName();
     private View rootView;
+
     public Fragment newInstanceAndShow(AppCompatActivity activity) {
         Fragment fragment = getFragment();
         activity.getSupportFragmentManager()
@@ -31,10 +32,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public Fragment newInstance() {
-//        activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_root,fragment);
         return this;
     }
-
 
     @Nullable
     @Override
@@ -52,13 +51,10 @@ public abstract class BaseFragment extends Fragment {
     protected void initToolBar() {
         Toolbar toolbar = findById(R.id.app_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-
         final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(TAG);
-
     }
 
     protected abstract void initView(View view);

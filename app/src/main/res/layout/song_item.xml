@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <ImageView
+        android:id="@+id/song_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/song_icon_bg"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/song_name"
+        android:paddingTop="10dp"
+        android:textSize="9pt"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textColor="@color/black"
+        android:paddingRight="30dp"
+        android:layout_toEndOf="@+id/song_icon"
+        android:text="歌曲名xxxxxxxxxxxxxxxxxxxxxxxxxxxx字">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/art_name"
+        android:paddingBottom="14dp"
+        android:textSize="6pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/song_icon"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black"
+        android:text="歌手">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/song_time"
+        android:paddingBottom="14dp"
+        android:textSize="6pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/art_name"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black"
+        android:text="· 03:02">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/more_btn"
+        android:src="@drawable/baseline_more_vert_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/state_selector_light"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp">
+
+    </ImageView>
+
+</RelativeLayout>

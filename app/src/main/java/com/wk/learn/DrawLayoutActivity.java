@@ -17,7 +17,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.wk.learn.fragment.AboutFragment;
 import com.wk.learn.fragment.FoldersFragment;
 import com.wk.learn.fragment.LibraryFragment;
-import com.wk.learn.fragment.MainFragment;
 import com.wk.learn.fragment.PlayListsFragment;
 import com.wk.learn.fragment.PlayingQueueFragment;
 import com.wk.learn.fragment.SettingFragment;
@@ -27,16 +26,26 @@ import com.wk.learn.fragment.base.BaseFragment;
 public class DrawLayoutActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
+
+    private   Runnable currentViewRunnable = null;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draw_layout_main);
+        initDrawerLayout();
+        defaultView();
+    }
 
+    private void defaultView() {
+        libraryRunnable.run();
+    }
+
+    private void initDrawerLayout() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navView = findViewById(R.id.nav_view);
         View headerView = navView.inflateHeaderView(R.layout.nav_header);
-
-//        new LibraryFragment().newInstanceAndShow(this);
         ImageView imageView = headerView.findViewById(R.id.album_art);
         imageView.setImageResource(R.drawable.ic_empty_music2);
 
@@ -44,7 +53,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
         setNavIcon(navView);
         setNavListener(navView);
 
-        libraryRunnable.run();
     }
 
     private void setNavListener(NavigationView navView) {
@@ -57,43 +65,43 @@ public class DrawLayoutActivity extends AppCompatActivity {
         });
     }
 
-    private   Runnable runnable = null;
-
     private void updatePosition(MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_library:
-                runnable =libraryRunnable;
+                item.setChecked(true);
+                currentViewRunnable =libraryRunnable;
                 break;
             case R.id.nav_playlists:
-                runnable = playlistRunnable;
+                item.setChecked(true);
+                currentViewRunnable = playlistRunnable;
                 break;
-            case R.id.nav_folders:
-                runnable = foldersRunnable;
-                break;
+//            case R.id.nav_folders:
+//                currentViewRunnable = foldersRunnable;
+//                break;
             case R.id.nav_queue:
-                runnable = playingQueueRunnable;
+                item.setChecked(true);
+                currentViewRunnable = playingQueueRunnable;
                 break;
-            case R.id.nav_nowplaying:
-                runnable = nowPlayingRunnable;
-                break;
+//            case R.id.nav_nowplaying:
+//                currentViewRunnable = nowPlayingRunnable;
+//                break;
             case R.id.nav_settings:
-                runnable = settingRunnable;
+                currentViewRunnable = settingRunnable;
                 break;
             case R.id.nav_about:
-                runnable = aboutRunnable;
+                currentViewRunnable = aboutRunnable;
                 break;
             case R.id.nav_donate:
-                runnable = supportDevelopRunnable;
+                currentViewRunnable = supportDevelopRunnable;
                 break;
         }
-        if (runnable!=null) {
-            item.setChecked(true);
+        if (currentViewRunnable !=null) {
             mDrawerLayout.closeDrawers();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    runnable.run();
+                    currentViewRunnable.run();
                 }
             }, 350);
         }
@@ -104,21 +112,23 @@ public class DrawLayoutActivity extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_library).setIcon(R.drawable.library_music);
         navigationView.getMenu().findItem(R.id.nav_playlists).setIcon(R.drawable.playlist_play);
         navigationView.getMenu().findItem(R.id.nav_queue).setIcon(R.drawable.music_note);
-        navigationView.getMenu().findItem(R.id.nav_folders).setIcon(R.drawable.ic_folder_open_black_24dp);
-        navigationView.getMenu().findItem(R.id.nav_nowplaying).setIcon(R.drawable.bookmark_music);
+//        navigationView.getMenu().findItem(R.id.nav_folders).setIcon(R.drawable.ic_folder_open_black_24dp);
+//        navigationView.getMenu().findItem(R.id.nav_nowplaying).setIcon(R.drawable.bookmark_music);
         navigationView.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.settings);
         navigationView.getMenu().findItem(R.id.nav_about).setIcon(R.drawable.information);
         navigationView.getMenu().findItem(R.id.nav_donate).setIcon(R.drawable.payment_black);
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //back按键
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if (isNavigatingMain()) {
                     mDrawerLayout.openDrawer(GravityCompat.START);
-                } else super.onBackPressed();
+                } else{
+                    super.onBackPressed();
+                }
                 return true;
             }
         }
@@ -130,6 +140,9 @@ public class DrawLayoutActivity extends AppCompatActivity {
         return (currentFragment instanceof BaseFragment);
     }
 
+    /**
+     * 库
+     */
     private Runnable libraryRunnable = new Runnable() {
         @Override
         public void run() {
@@ -138,7 +151,9 @@ public class DrawLayoutActivity extends AppCompatActivity {
         }
     };
 
-
+    /**
+     * 播放列表
+     */
     private Runnable playlistRunnable = new Runnable() {
         @Override
         public void run() {
@@ -147,6 +162,9 @@ public class DrawLayoutActivity extends AppCompatActivity {
     };
 
 
+    /**
+     * 文件夹
+     */
     private Runnable foldersRunnable = new Runnable() {
         @Override
         public void run() {
@@ -155,7 +173,9 @@ public class DrawLayoutActivity extends AppCompatActivity {
         }
     };
 
-
+    /**
+     * 正在播放的队列
+     */
     private Runnable playingQueueRunnable = new Runnable() {
         @Override
         public void run() {
@@ -163,14 +183,14 @@ public class DrawLayoutActivity extends AppCompatActivity {
             new PlayingQueueFragment().newInstanceAndShow(DrawLayoutActivity.this);
         }
     };
-
-    private Runnable nowPlayingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            navView.getMenu().findItem(R.id.nav_nowplaying).setChecked(false);
-            new PlayListsFragment().newInstanceAndShow(DrawLayoutActivity.this);
-        }
-    };
+//
+//    private Runnable nowPlayingRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            navView.getMenu().findItem(R.id.nav_nowplaying).setChecked(false);
+//            new PlayListsFragment().newInstanceAndShow(DrawLayoutActivity.this);
+//        }
+//    };
 
 
     private Runnable settingRunnable = new Runnable() {
