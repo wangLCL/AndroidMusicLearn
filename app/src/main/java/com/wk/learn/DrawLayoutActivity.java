@@ -1,7 +1,12 @@
 package com.wk.learn;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaControllerCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -25,11 +32,14 @@ import com.wk.learn.fragment.SettingFragment;
 import com.wk.learn.fragment.SupportDevelopFragment;
 import com.wk.learn.fragment.base.BaseFragment;
 import com.wk.learn.play.MusicPlay;
+import com.wk.learn.utils.SessionUtils;
 
 public class DrawLayoutActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
     private Runnable currentViewRunnable = null;
+    private SessionUtils sessionUtils;
+    public static MediaControllerCompat controllerCompat;
     private Runnable quickPlay = new Runnable() {
         @Override
         public void run() {
@@ -50,6 +60,17 @@ public class DrawLayoutActivity extends AppCompatActivity {
                     MusicPlay.pause();
                 }
             });
+
+            controllerCompat.getTransportControls().play();
+
+//                if (mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PLAYING) {
+//                    mMediaController.getTransportControls().pause();
+//                } else if (mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PAUSED) {
+//                    mMediaController.getTransportControls().play();
+//                } else {
+//                    mMediaController.getTransportControls().playFromSearch("", null);
+//                }
+
         }
     };
 
@@ -60,7 +81,50 @@ public class DrawLayoutActivity extends AppCompatActivity {
         initDrawerLayout();
         defaultView();
         MusicPlay.setQuickPlayRunnable(quickPlay);
+        sessionUtils = new SessionUtils(this);
+        controllerCompat = new MediaControllerCompat(this,sessionUtils.getSessionToken());
+        controllerCompat.registerCallback(mMediaControllerCallback);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    0);
+
+        }
     }
+
+    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
+        @Override
+        public void onPlaybackStateChanged(PlaybackStateCompat state) {
+            switch (state.getState()) {
+                case PlaybackStateCompat.STATE_NONE://无任何状态
+//                    imgPause.setImageResource(R.drawable.img_pause);
+                    break;
+                case PlaybackStateCompat.STATE_PLAYING:
+//                    imgPause.setImageResource(R.drawable.img_pause);
+                    break;
+                case PlaybackStateCompat.STATE_PAUSED:
+//                    imgPause.setImageResource(R.drawable.img_play);
+                    break;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
+                    break;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
+                    break;
+                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
+                    break;
+                case PlaybackStateCompat.STATE_REWINDING://快退
+                    break;
+            }
+        }
+
+        @Override
+        public void onMetadataChanged(MediaMetadataCompat metadata) {
+            super.onMetadataChanged(metadata);
+//            MusicTitle.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
+        }
+    };
+
 
     private void defaultView() {
         libraryRunnable.run();

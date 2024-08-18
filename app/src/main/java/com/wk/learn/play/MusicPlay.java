@@ -40,7 +40,7 @@ public class MusicPlay {
                 return;
             }
         }
-        playIndex = _position;
+        playIndex = _position % songList.size();
         currentPlayInfo = songList.get(playIndex);
         musicController.setMusicData(currentPlayInfo.getPath());
     }
@@ -72,5 +72,33 @@ public class MusicPlay {
 
     public static void pause() {
         musicController.pausePlay();
+    }
+
+    public static boolean isPlaying() {
+        return musicController.isPlaying();
+    }
+
+    public static void continuePlay() {
+        musicController.continuePlay();
+    }
+
+    public static void seekTo(int pos) {
+        musicController.seekTo(pos);
+    }
+
+    public static void playNext() {
+        playIndex = ++playIndex % songList.size();
+        setMusicData(playIndex);
+        play();
+    }
+
+    public static void playPre() {
+        playIndex = (--playIndex+songList.size()) % songList.size();
+        setMusicData(playIndex);
+        play();
+    }
+
+    public static void stop() {
+        musicController.stop();
     }
 }
