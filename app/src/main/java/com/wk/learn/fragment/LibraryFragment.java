@@ -31,7 +31,7 @@ public class LibraryFragment extends BaseFragment {
         ViewPager viewPager = findById(R.id.library_viewpaper);
         tabLayout.setupWithViewPager(viewPager);
 
-        ViewpaperPageAdpter pageAdpter = new ViewpaperPageAdpter(getFragmentManager());
+        ViewpaperPageAdpter pageAdpter = new ViewpaperPageAdpter(getChildFragmentManager());
         pageAdpter.addFragment(new SongListFragment(),"歌曲");
         pageAdpter.addFragment(new AlistListFragment(),"专辑");
         pageAdpter.addFragment(new ArtListFragment(),"about");

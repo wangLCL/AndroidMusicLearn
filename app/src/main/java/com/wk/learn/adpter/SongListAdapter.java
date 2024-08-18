@@ -16,6 +16,7 @@ import com.wk.learn.adpter.holder.SongListHolder;
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.bean.MusicInfoBean;
 import com.wk.learn.load.SongListLoader;
+import com.wk.learn.play.MusicPlay;
 import com.wk.learn.utils.BitmapUtils;
 import com.wk.learn.utils.TimeUtils;
 
@@ -26,6 +27,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListHolder> {
     private ArrayList<MusicInfoBean> musicInfoBeans;
     public SongListAdapter(ArrayList<MusicInfoBean> musicInfoBeans) {
         this.musicInfoBeans = musicInfoBeans;
+        MusicPlay.setSongList(musicInfoBeans);
     }
 
     @NonNull
@@ -46,6 +48,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListHolder> {
         holder.getSongIcon().setImageBitmap(bitmap);
         holder.getSongName().setText(musicInfoBean.getTitle());
         holder.getArtName().setText(musicInfoBean.getArtistName());
+        holder.setPosition(position);
         holder.getDuration().setText(" · "+TimeUtils.longToTime(musicInfoBean.getDuration()));
         holder.getMoreBtn().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListHolder> {
                 popupMenu.show();
             }
         });
+
     }
 
     @Override

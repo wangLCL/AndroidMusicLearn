@@ -26,6 +26,19 @@ public class MusicController extends Binder implements IMusicController{
         this.focusChangeListener = new MusicFocusChangeListener(this);
     }
 
+    private static MusicController musicController;
+
+    public static void setMusicController(MusicController _musicController) {
+        musicController = _musicController;
+    }
+
+    public static MusicController getMusicController(){
+        if (musicController == null){
+            throw new RuntimeException("service start error!");
+        }
+        return musicController;
+    }
+
     @Override
     public void setMusicData(String path) {
         try {

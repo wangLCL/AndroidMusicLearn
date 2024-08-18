@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+import com.wk.learn.bean.MusicInfoBean;
 import com.wk.learn.fragment.AboutFragment;
 import com.wk.learn.fragment.FoldersFragment;
 import com.wk.learn.fragment.LibraryFragment;
@@ -22,13 +24,34 @@ import com.wk.learn.fragment.PlayingQueueFragment;
 import com.wk.learn.fragment.SettingFragment;
 import com.wk.learn.fragment.SupportDevelopFragment;
 import com.wk.learn.fragment.base.BaseFragment;
+import com.wk.learn.play.MusicPlay;
 
 public class DrawLayoutActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
+    private Runnable currentViewRunnable = null;
+    private Runnable quickPlay = new Runnable() {
+        @Override
+        public void run() {
+            View quickPlayView = findViewById(R.id.quick_play);
+            ImageView playImg = quickPlayView.findViewById(R.id.play_img);
+            TextView songName = quickPlayView.findViewById(R.id.song_name);
+            TextView artName = quickPlayView.findViewById(R.id.art_name);
+            TextView songTime = quickPlayView.findViewById(R.id.song_time);
+            ImageView playPause = quickPlayView.findViewById(R.id.play_pause);
 
-    private   Runnable currentViewRunnable = null;
-
+            MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
+            songName.setText(musicInfo.getTitle());
+            songTime.setText(musicInfo.getDuration()+"");
+            artName.setText(musicInfo.getArtistName());
+            playPause.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MusicPlay.pause();
+                }
+            });
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +59,7 @@ public class DrawLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.draw_layout_main);
         initDrawerLayout();
         defaultView();
+        MusicPlay.setQuickPlayRunnable(quickPlay);
     }
 
     private void defaultView() {
