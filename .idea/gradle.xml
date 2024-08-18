@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AteUtils" />
             <option value="$PROJECT_DIR$/DialogUtils" />
+            <option value="$PROJECT_DIR$/NotificationUtils" />
             <option value="$PROJECT_DIR$/UtilsLib" />
             <option value="$PROJECT_DIR$/app" />
           </set>
