@@ -34,6 +34,9 @@ import com.wk.learn.fragment.base.BaseFragment;
 import com.wk.learn.play.MusicPlay;
 import com.wk.learn.utils.SessionUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawLayoutActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
@@ -73,7 +76,15 @@ public class DrawLayoutActivity extends AppCompatActivity {
 
         }
     };
-
+    private static final int REQUEST_CODE_PERMISSIONS = 1;
+    private static final String[] REQUIRED_PERMISSIONS = {
+            Manifest.permission.READ_MEDIA_AUDIO,
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO,
+            Manifest.permission.POST_NOTIFICATIONS,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +96,18 @@ public class DrawLayoutActivity extends AppCompatActivity {
         controllerCompat = new MediaControllerCompat(this,sessionUtils.getSessionToken());
         controllerCompat.registerCallback(mMediaControllerCallback);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    0);
+        List<String> permissionsNeeded = new ArrayList<>();
 
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsNeeded.add(permission);
+            }
+        }
+
+        if (!permissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    permissionsNeeded.toArray(new String[0]),
+                    REQUEST_CODE_PERMISSIONS);
         }
     }
 
@@ -312,5 +329,14 @@ public class DrawLayoutActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int grantResult : grantResults) {
+            System.out.println(grantResult+"-------------------");
+        }
+        System.out.println(requestCode);
     }
 }

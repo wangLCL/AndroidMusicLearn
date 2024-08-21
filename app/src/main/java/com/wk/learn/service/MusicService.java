@@ -25,8 +25,6 @@ public class MusicService extends Service {
     public static final String ACTION_PAUSE = "pause";
     public static final String ACTION_NEXT = "next";
     public static final String ACTION_LAST = "last";
-    public static final String PARAM_TRACK_URI = "uri";
-    public static final String PLAY_DATA = "data";
 
     @Override
     public void onCreate() {
@@ -53,7 +51,7 @@ public class MusicService extends Service {
     }
 
     /**
-     *
+     * media发送来的命令
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
