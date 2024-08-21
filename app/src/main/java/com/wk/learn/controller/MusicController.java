@@ -1,9 +1,12 @@
 package com.wk.learn.controller;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+
+import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.listener.MusicFocusChangeListener;
@@ -24,6 +27,9 @@ public class MusicController extends Binder implements IMusicController{
         this.mediaPlayer = mediaPlayer;
         this.mAudioManager = (AudioManager) BaseApplication.context().getSystemService(Context.AUDIO_SERVICE);
         this.focusChangeListener = new MusicFocusChangeListener(this);
+
+
+
     }
 
     private static MusicController musicController;

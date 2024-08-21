@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 
 import androidx.core.app.NotificationCompat;
+import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.R;
 import com.wk.learn.play.MusicPlay;
@@ -37,6 +39,8 @@ public class SessionUtils {
                     .build();
             mSession.setPlaybackState(mPlaybackState);
             updateNotification();
+
+
         }
 
         @Override
