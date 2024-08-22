@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 
@@ -30,26 +31,18 @@ public class SessionUtils {
     private Activity mContext;
     private NotificationManager notificationManager;
 
+    public static MediaControllerCompat controllerCompat;
+
     private MediaSessionCompat.Callback mediasessionBack = new MediaSessionCompat.Callback() {
         @Override
         public void onPause() {
-            MusicPlay.pause();
-            mPlaybackState = new PlaybackStateCompat.Builder()
-                    .setState(PlaybackStateCompat.STATE_PAUSED, 0, 1.0f)
-                    .build();
-            mSession.setPlaybackState(mPlaybackState);
-            updateNotification();
+            musicPause();
 
         }
 
         @Override
         public void onPlay() {
-            mPlaybackState = new PlaybackStateCompat.Builder()
-                    .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
-                    .build();
-            mSession.setPlaybackState(mPlaybackState);
-            MusicPlay.continuePlay();
-            updateNotification();
+            musicPlay();
         }
 
         @Override
@@ -59,20 +52,12 @@ public class SessionUtils {
 
         @Override
         public void onSkipToNext() {
-            MusicPlay.playNext();
-            mPlaybackState = new PlaybackStateCompat.Builder()
-                    .setState(PlaybackStateCompat.STATE_SKIPPING_TO_NEXT, 0, 1.0f)
-                    .build();
-            mSession.setPlaybackState(mPlaybackState);
+            musicPlayNext();
         }
 
         @Override
         public void onSkipToPrevious() {
-            MusicPlay.playPre();
-            mPlaybackState = new PlaybackStateCompat.Builder()
-                    .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
-                    .build();
-            mSession.setPlaybackState(mPlaybackState);
+            musicPlayPre();
         }
 
         @Override
@@ -80,6 +65,40 @@ public class SessionUtils {
             MusicPlay.stop();
         }
     };
+
+    public void musicPlayPre() {
+        MusicPlay.playPre();
+        mPlaybackState = new PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
+                .build();
+        mSession.setPlaybackState(mPlaybackState);
+    }
+
+    private void musicPlayNext() {
+        MusicPlay.playNext();
+        mPlaybackState = new PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_SKIPPING_TO_NEXT, 0, 1.0f)
+                .build();
+        mSession.setPlaybackState(mPlaybackState);
+    }
+
+    public void musicPlay() {
+        mPlaybackState = new PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
+                .build();
+        mSession.setPlaybackState(mPlaybackState);
+        MusicPlay.continuePlay();
+        updateNotification();
+    }
+
+    public void musicPause() {
+        MusicPlay.pause();
+        mPlaybackState = new PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_PAUSED, 0, 1.0f)
+                .build();
+        mSession.setPlaybackState(mPlaybackState);
+        updateNotification();
+    }
 
     public SessionUtils(Activity activity){
         this.mContext = activity;
@@ -89,7 +108,43 @@ public class SessionUtils {
         mSession.setCallback(mediasessionBack);
         mSession.setActive(true);
         notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+        controllerCompat = new MediaControllerCompat(activity,getSessionToken());
+        controllerCompat.registerCallback(mMediaControllerCallback);
     }
+
+
+    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
+        @Override
+        public void onPlaybackStateChanged(PlaybackStateCompat state) {
+            switch (state.getState()) {
+                case PlaybackStateCompat.STATE_NONE://无任何状态
+//                    imgPause.setImageResource(R.drawable.img_pause);
+                    break;
+                case PlaybackStateCompat.STATE_PLAYING:
+//                    imgPause.setImageResource(R.drawable.img_pause);
+                    break;
+                case PlaybackStateCompat.STATE_PAUSED:
+//                    imgPause.setImageResource(R.drawable.img_play);
+                    break;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
+                    break;
+                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
+                    break;
+                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
+                    break;
+                case PlaybackStateCompat.STATE_REWINDING://快退
+                    break;
+            }
+        }
+
+        @Override
+        public void onMetadataChanged(MediaMetadataCompat metadata) {
+            super.onMetadataChanged(metadata);
+//            MusicTitle.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
+        }
+    };
+
+
 
     public void setMetadata(MediaMetadataCompat metadata) {
         mSession.setMetadata(metadata);
@@ -106,16 +161,15 @@ public class SessionUtils {
     /**
      * 更新通知栏
      */
-    private void updateNotification() {
+    public void updateNotification() {
         MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
         if (Build.VERSION.SDK_INT<26) {
             NotificationCompat.Action playPauseAction = mPlaybackState.getState() ==
                     PlaybackStateCompat.STATE_PLAYING ?
-                    createAction(R.drawable.ic_pause_white_36dp, "Pause", MusicService.ACTION_PAUSE) :
-                    createAction(R.drawable.ic_play_white_36dp, "Play", MusicService.ACTION_PLAY);
+                    createAction(R.mipmap.ic_pause_white_36dp, "Pause", MusicService.ACTION_PAUSE) :
+                    createAction(R.mipmap.ic_play_white_36dp, "Play", MusicService.ACTION_PLAY);
             Drawable drawable = mContext.getApplicationInfo().loadIcon(mContext.getPackageManager());
             Bitmap bitmap = getBitmapFromDrawable(drawable);
-
             NotificationCompat.Builder notificationCompat
                     = new NotificationCompat.Builder(mContext)
                     .setContentTitle(musicInfo.getTitle())
@@ -127,9 +181,9 @@ public class SessionUtils {
                     .setShowWhen(false)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setAutoCancel(false)
-                    .addAction(createAction(R.drawable.ic_skip_previous_white_36dp, "last", MusicService.ACTION_LAST))
+                    .addAction(createAction(R.mipmap.ic_skip_previous_white_36dp, "last", MusicService.ACTION_LAST))
                     .addAction(playPauseAction)
-                    .addAction(createAction(R.drawable.ic_skip_next_white_36dp, "next", MusicService.ACTION_NEXT))
+                    .addAction(createAction(R.mipmap.ic_skip_next_white_36dp, "next", MusicService.ACTION_NEXT))
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setMediaSession(mSession.getSessionToken())
                             .setShowActionsInCompactView(0, 1, 2));
@@ -138,8 +192,8 @@ public class SessionUtils {
         }else {
             NotificationCompat.Action playPauseAction = mPlaybackState.getState() ==
                     PlaybackStateCompat.STATE_PLAYING ?
-                    createAction(R.drawable.ic_pause_white_36dp, "Pause", MusicService.ACTION_PAUSE) :
-                    createAction(R.drawable.ic_play_white_36dp, "Play", MusicService.ACTION_PLAY);
+                    createAction(R.mipmap.ic_pause_white_36dp, "Pause", MusicService.ACTION_PAUSE) :
+                    createAction(R.mipmap.ic_play_white_36dp, "Play", MusicService.ACTION_PLAY);
 
             NotificationChannel mChannel = new NotificationChannel("channelID", "channelName",
                     NotificationManager.IMPORTANCE_DEFAULT);
@@ -154,11 +208,11 @@ public class SessionUtils {
 //        用户正在积极参与（例如，播放音乐）或以某种方式挂起并因此占用设备的后台任务（例如，文件下载、同步操作、活动网络连接）。
                     .setOngoing(mPlaybackState.getState() == PlaybackStateCompat.STATE_PLAYING)
                     .setShowWhen(false)
-                    .setSmallIcon(R.drawable.ic_pause_white_36dp)
+                    .setSmallIcon(R.mipmap.ic_pause_white_36dp)
                     .setAutoCancel(false)
-                    .addAction(createAction(R.drawable.ic_skip_previous_white_36dp, "last", MusicService.ACTION_LAST))
+                    .addAction(createAction(R.mipmap.ic_skip_previous_white_36dp, "last", MusicService.ACTION_LAST))
                     .addAction(playPauseAction)
-                    .addAction(createAction(R.drawable.ic_skip_next_white_36dp, "next", MusicService.ACTION_NEXT))
+                    .addAction(createAction(R.mipmap.ic_skip_next_white_36dp, "next", MusicService.ACTION_NEXT))
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setMediaSession(mSession.getSessionToken())
                             .setShowActionsInCompactView(0, 1, 2));

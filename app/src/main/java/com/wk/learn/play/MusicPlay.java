@@ -47,8 +47,8 @@ public class MusicPlay {
 
     public static void play(){
         checkPlayService();
-        quickPlayRunnable.run();
         musicController.play();
+        quickPlayRunnable.run();
     }
 
     private static boolean checkPlayService(){

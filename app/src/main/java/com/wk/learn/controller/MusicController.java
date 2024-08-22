@@ -10,6 +10,7 @@ import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.listener.MusicFocusChangeListener;
+import com.wk.learn.utils.SessionUtils;
 
 import java.io.IOException;
 
@@ -27,9 +28,6 @@ public class MusicController extends Binder implements IMusicController{
         this.mediaPlayer = mediaPlayer;
         this.mAudioManager = (AudioManager) BaseApplication.context().getSystemService(Context.AUDIO_SERVICE);
         this.focusChangeListener = new MusicFocusChangeListener(this);
-
-
-
     }
 
     private static MusicController musicController;
@@ -54,7 +52,6 @@ public class MusicController extends Binder implements IMusicController{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override

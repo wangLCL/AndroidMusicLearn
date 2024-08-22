@@ -42,7 +42,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
     private NavigationView navView;
     private Runnable currentViewRunnable = null;
     private SessionUtils sessionUtils;
-    public static MediaControllerCompat controllerCompat;
     private Runnable quickPlay = new Runnable() {
         @Override
         public void run() {
@@ -50,29 +49,32 @@ public class DrawLayoutActivity extends AppCompatActivity {
             ImageView playImg = quickPlayView.findViewById(R.id.play_img);
             TextView songName = quickPlayView.findViewById(R.id.song_name);
             TextView artName = quickPlayView.findViewById(R.id.art_name);
-            TextView songTime = quickPlayView.findViewById(R.id.song_time);
             ImageView playPause = quickPlayView.findViewById(R.id.play_pause);
 
             MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
             songName.setText(musicInfo.getTitle());
-            songTime.setText(musicInfo.getDuration()+"");
             artName.setText(musicInfo.getArtistName());
+            if (MusicPlay.isPlaying()){
+                playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
+                sessionUtils.musicPlay();
+            }else {
+                playPause.setImageResource(R.mipmap.ic_play_arrow_black_36dp);
+                sessionUtils.musicPause();
+            }
             playPause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MusicPlay.pause();
+                    if (MusicPlay.isPlaying()){
+                        MusicPlay.pause();
+                        playPause.setImageResource(R.mipmap.ic_play_arrow_black_36dp);
+                        sessionUtils.musicPause();
+                    }else {
+                        MusicPlay.play();
+                        playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
+                        sessionUtils.musicPlay();
+                    }
                 }
             });
-
-            controllerCompat.getTransportControls().play();
-
-//                if (mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PLAYING) {
-//                    mMediaController.getTransportControls().pause();
-//                } else if (mMediaController.getPlaybackState().getState() == PlaybackStateCompat.STATE_PAUSED) {
-//                    mMediaController.getTransportControls().play();
-//                } else {
-//                    mMediaController.getTransportControls().playFromSearch("", null);
-//                }
 
         }
     };
@@ -93,9 +95,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
         defaultView();
         MusicPlay.setQuickPlayRunnable(quickPlay);
         sessionUtils = new SessionUtils(this);
-        controllerCompat = new MediaControllerCompat(this,sessionUtils.getSessionToken());
-        controllerCompat.registerCallback(mMediaControllerCallback);
-
         List<String> permissionsNeeded = new ArrayList<>();
 
         for (String permission : REQUIRED_PERMISSIONS) {
@@ -110,38 +109,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
                     REQUEST_CODE_PERMISSIONS);
         }
     }
-
-    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
-        @Override
-        public void onPlaybackStateChanged(PlaybackStateCompat state) {
-            switch (state.getState()) {
-                case PlaybackStateCompat.STATE_NONE://无任何状态
-//                    imgPause.setImageResource(R.drawable.img_pause);
-                    break;
-                case PlaybackStateCompat.STATE_PLAYING:
-//                    imgPause.setImageResource(R.drawable.img_pause);
-                    break;
-                case PlaybackStateCompat.STATE_PAUSED:
-//                    imgPause.setImageResource(R.drawable.img_play);
-                    break;
-                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
-                    break;
-                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
-                    break;
-                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
-                    break;
-                case PlaybackStateCompat.STATE_REWINDING://快退
-                    break;
-            }
-        }
-
-        @Override
-        public void onMetadataChanged(MediaMetadataCompat metadata) {
-            super.onMetadataChanged(metadata);
-//            MusicTitle.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
-        }
-    };
-
 
     private void defaultView() {
         libraryRunnable.run();
@@ -208,7 +175,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
                 }
             }, 350);
         }
-
     }
 
     private void setNavIcon(NavigationView navigationView) {
@@ -219,7 +185,7 @@ public class DrawLayoutActivity extends AppCompatActivity {
 //        navigationView.getMenu().findItem(R.id.nav_nowplaying).setIcon(R.drawable.bookmark_music);
         navigationView.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.settings);
         navigationView.getMenu().findItem(R.id.nav_about).setIcon(R.drawable.information);
-        navigationView.getMenu().findItem(R.id.nav_donate).setIcon(R.drawable.payment_black);
+        navigationView.getMenu().findItem(R.id.nav_donate).setIcon(R.mipmap.payment_black);
     }
 
     @Override

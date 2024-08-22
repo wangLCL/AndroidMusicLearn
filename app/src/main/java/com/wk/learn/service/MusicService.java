@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.wk.learn.DrawLayoutActivity;
 import com.wk.learn.controller.MusicController;
+import com.wk.learn.utils.SessionUtils;
 
 import java.util.List;
 
@@ -58,16 +59,16 @@ public class MusicService extends Service {
         if (intent != null && intent.getAction() != null) {
             switch (intent.getAction()) {
                 case ACTION_PLAY:
-                    DrawLayoutActivity.controllerCompat.getTransportControls().play();
+                    SessionUtils.controllerCompat.getTransportControls().play();
                     break;
                 case ACTION_NEXT:
-                    DrawLayoutActivity.controllerCompat.getTransportControls().skipToNext();
+                    SessionUtils.controllerCompat.getTransportControls().skipToNext();
                     break;
                 case ACTION_LAST:
-                    DrawLayoutActivity.controllerCompat.getTransportControls().skipToPrevious();
+                    SessionUtils.controllerCompat.getTransportControls().skipToPrevious();
                     break;
                 case ACTION_PAUSE:
-                    DrawLayoutActivity.controllerCompat.getTransportControls().pause();
+                    SessionUtils.controllerCompat.getTransportControls().pause();
                     break;
             }
         }
