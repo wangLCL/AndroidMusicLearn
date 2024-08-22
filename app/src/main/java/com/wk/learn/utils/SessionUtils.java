@@ -20,13 +20,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.R;
+import com.wk.learn.bean.MusicInfoBean;
 import com.wk.learn.play.MusicPlay;
 import com.wk.learn.service.MusicService;
 
 public class SessionUtils {
     private MediaSessionCompat mSession;
     private PlaybackStateCompat mPlaybackState;
-
     private Activity mContext;
     private NotificationManager notificationManager;
 
@@ -39,7 +39,6 @@ public class SessionUtils {
                     .build();
             mSession.setPlaybackState(mPlaybackState);
             updateNotification();
-
 
         }
 
@@ -61,11 +60,19 @@ public class SessionUtils {
         @Override
         public void onSkipToNext() {
             MusicPlay.playNext();
+            mPlaybackState = new PlaybackStateCompat.Builder()
+                    .setState(PlaybackStateCompat.STATE_SKIPPING_TO_NEXT, 0, 1.0f)
+                    .build();
+            mSession.setPlaybackState(mPlaybackState);
         }
 
         @Override
         public void onSkipToPrevious() {
             MusicPlay.playPre();
+            mPlaybackState = new PlaybackStateCompat.Builder()
+                    .setState(PlaybackStateCompat.STATE_PLAYING, 0, 1.0f)
+                    .build();
+            mSession.setPlaybackState(mPlaybackState);
         }
 
         @Override
@@ -96,19 +103,24 @@ public class SessionUtils {
         return mSession;
     }
 
-
     /**
      * 更新通知栏
      */
     private void updateNotification() {
+        MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
         if (Build.VERSION.SDK_INT<26) {
             NotificationCompat.Action playPauseAction = mPlaybackState.getState() ==
                     PlaybackStateCompat.STATE_PLAYING ?
                     createAction(R.drawable.ic_pause_white_36dp, "Pause", MusicService.ACTION_PAUSE) :
                     createAction(R.drawable.ic_play_white_36dp, "Play", MusicService.ACTION_PLAY);
-            NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(mContext)
-                    .setContentTitle("title")
-                    .setContentText("content")
+            Drawable drawable = mContext.getApplicationInfo().loadIcon(mContext.getPackageManager());
+            Bitmap bitmap = getBitmapFromDrawable(drawable);
+
+            NotificationCompat.Builder notificationCompat
+                    = new NotificationCompat.Builder(mContext)
+                    .setContentTitle(musicInfo.getTitle())
+                    .setContentText(musicInfo.getArtistName())
+                    .setLargeIcon(bitmap)
 //        设置这是否是一个正在进行的通知。用户无法拒绝正在进行的通知，因此您的应用程序或服务必须负责取消这些通知。它们通常用于指示
 //        用户正在积极参与（例如，播放音乐）或以某种方式挂起并因此占用设备的后台任务（例如，文件下载、同步操作、活动网络连接）。
                     .setOngoing(mPlaybackState.getState() == PlaybackStateCompat.STATE_PLAYING)
@@ -135,8 +147,8 @@ public class SessionUtils {
             Drawable drawable = mContext.getApplicationInfo().loadIcon(mContext.getPackageManager());
             Bitmap bitmap = getBitmapFromDrawable(drawable);
             NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(mContext,"channelID")
-                    .setContentTitle("title")
-                    .setContentText("content")
+                    .setContentTitle(musicInfo.getTitle())
+                    .setContentText(musicInfo.getArtistName())
                     .setLargeIcon(bitmap)
 //        设置这是否是一个正在进行的通知。用户无法拒绝正在进行的通知，因此您的应用程序或服务必须负责取消这些通知。它们通常用于指示
 //        用户正在积极参与（例如，播放音乐）或以某种方式挂起并因此占用设备的后台任务（例如，文件下载、同步操作、活动网络连接）。
