@@ -10,18 +10,39 @@ import com.wk.learn.bean.MusicInfoBean;
 import java.util.ArrayList;
 
 public class SongListLoader {
+    /**
+     * ContentResolver contentResolver = getContentResolver();
+     *
+     * // 指定要查询的音乐数据的URI
+     * Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+     *
+     * // 指定要查询的字段
+     * String[] projection = {
+     *     MediaStore.Audio.Media._ID,
+     *     MediaStore.Audio.Media.TITLE,
+     *     MediaStore.Audio.Media.ARTIST,
+     *     MediaStore.Audio.Media.DURATION
+     * };
+     *
+     * // 执行查询
+     * Cursor cursor = contentResolver.query(
+     *     uri,                   // 要查询的URI
+     *     projection,            // 要返回的列
+     *     null,                  // 查询条件字符串
+     *     null,                  // 查询条件中的参数
+     *     MediaStore.Audio.Media.TITLE + " ASC"  // 排序
+     * );
+     * @return
+     */
     public static ArrayList<MusicInfoBean> loadAllMusic(){
         ArrayList<MusicInfoBean> musicInfoBeans = new ArrayList<>();
-        final StringBuilder selection = new StringBuilder();
-        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
-        selection.append(" AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''");
-        selection.append(" AND " + MediaStore.Audio.Media.DATE_ADDED + ">");
         Cursor mCursor = BaseApplication.context().getContentResolver()
-                .query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                        null, null,
-                        null, MediaStore.Audio.AudioColumns.IS_MUSIC);
-
-
+                .query(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        null,
+                        null,
+                        null,
+                        MediaStore.Audio.AudioColumns.IS_MUSIC);
         if (mCursor != null && mCursor.moveToFirst()) {
             do {
                 long id = mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
@@ -42,4 +63,6 @@ public class SongListLoader {
         }
         return musicInfoBeans;
     }
+
+
 }

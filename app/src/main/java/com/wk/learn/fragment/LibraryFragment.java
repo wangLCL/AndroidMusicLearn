@@ -1,18 +1,9 @@
 package com.wk.learn.fragment;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.wk.learn.R;
@@ -33,7 +24,7 @@ public class LibraryFragment extends BaseFragment {
 
         ViewpaperPageAdpter pageAdpter = new ViewpaperPageAdpter(getChildFragmentManager());
         pageAdpter.addFragment(new SongListFragment(),"歌曲");
-        pageAdpter.addFragment(new AlistListFragment(),"专辑");
+        pageAdpter.addFragment(new AlbumListFragment(),"专辑");
         pageAdpter.addFragment(new ArtListFragment(),"about");
         viewPager.setAdapter(pageAdpter);
     }
