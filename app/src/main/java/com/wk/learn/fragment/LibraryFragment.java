@@ -23,10 +23,11 @@ public class LibraryFragment extends BaseFragment {
         tabLayout.setupWithViewPager(viewPager);
 
         ViewpaperPageAdpter pageAdpter = new ViewpaperPageAdpter(getChildFragmentManager());
-        pageAdpter.addFragment(new SongListFragment(),"歌曲");
-        pageAdpter.addFragment(new AlbumListFragment(),"专辑");
-        pageAdpter.addFragment(new ArtListFragment(),"about");
+        pageAdpter.addFragment(new SongListFragment(),getString(R.string.song_title));
+        pageAdpter.addFragment(new AlbumListFragment(),getString(R.string.album_title));
+        pageAdpter.addFragment(new ArtListFragment(),getString(R.string.artist_title));
         viewPager.setAdapter(pageAdpter);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     @Override

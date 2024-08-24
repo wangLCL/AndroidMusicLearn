@@ -26,4 +26,8 @@
     <string name="add_to_playlist">add_to_playlist</string>
     <string name="add_to_album">add_to_album</string>
     <string name="delete_from_device">delete from device</string>
+    <string name="song_title">song</string>
+    <string name="album_title">album</string>
+    <string name="artist_title">artist</string>
+
 </resources>

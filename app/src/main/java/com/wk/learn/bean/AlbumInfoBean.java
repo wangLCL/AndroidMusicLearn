@@ -45,4 +45,16 @@ public class AlbumInfoBean {
     public int getMinyear() {
         return minyear;
     }
+
+    @Override
+    public String toString() {
+        return "AlbumInfoBean{" +
+                "id=" + id +
+                ", album='" + album + '\'' +
+                ", artistId=" + artistId +
+                ", artist='" + artist + '\'' +
+                ", numsongs=" + numsongs +
+                ", minyear=" + minyear +
+                '}';
+    }
 }

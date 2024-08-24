@@ -31,7 +31,11 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlbumListHolder holder, int position) {
-
+        AlbumInfoBean albumInfoBean = albumInfoBeanList.get(position);
+        System.out.println(albumInfoBean+"======================");
+//        holder.getAlbumArt().setImageResource();
+        holder.getAlbumName().setText(albumInfoBean.getAlbum());
+        holder.getAlbumArtistName().setText(albumInfoBean.getArtist());
     }
 
     @Override
