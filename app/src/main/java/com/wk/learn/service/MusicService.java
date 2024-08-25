@@ -7,16 +7,9 @@ import android.media.MediaPlayer;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.service.media.MediaBrowserService;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.wk.learn.DrawLayoutActivity;
 import com.wk.learn.controller.MusicController;
 import com.wk.learn.utils.SessionUtils;
-
-import java.util.List;
 
 public class MusicService extends Service {
     private MediaPlayer mediaPlayer;

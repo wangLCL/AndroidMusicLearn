@@ -101,4 +101,8 @@ public class MusicPlay {
     public static void stop() {
         musicController.stop();
     }
+
+    public static long currentPosition(){
+        return musicController.getCurrentPosition();
+    }
 }

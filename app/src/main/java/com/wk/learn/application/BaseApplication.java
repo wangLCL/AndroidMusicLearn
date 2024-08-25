@@ -4,18 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.media.Image;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.wk.learn.Utils;
 import com.wk.learn.service.MusicService;
 import com.wk.learn.service.MusicServiceConnection;
-
-import java.util.List;
 
 public class BaseApplication extends Application {
 

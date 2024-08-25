@@ -1,4 +1,4 @@
-package com.wk.learn;
+package com.wk.learn.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+import com.wk.learn.R;
 import com.wk.learn.bean.MusicInfoBean;
 import com.wk.learn.fragment.AboutFragment;
 import com.wk.learn.fragment.FoldersFragment;
@@ -34,6 +35,7 @@ import com.wk.learn.fragment.SupportDevelopFragment;
 import com.wk.learn.fragment.base.BaseFragment;
 import com.wk.learn.play.MusicPlay;
 import com.wk.learn.utils.SessionUtils;
+import com.wk.utilslib.utils.permission.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class DrawLayoutActivity extends AppCompatActivity {
             View quickPlayView = findViewById(R.id.quick_play);
             ImageView playImg = quickPlayView.findViewById(R.id.play_img);
             TextView songName = quickPlayView.findViewById(R.id.song_name);
-            TextView artName = quickPlayView.findViewById(R.id.art_name);
+            TextView artName = quickPlayView.findViewById(R.id.artist_name);
             ImageView playPause = quickPlayView.findViewById(R.id.play_pause);
 
             MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
@@ -79,15 +81,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
 
         }
     };
-    private static final int REQUEST_CODE_PERMISSIONS = 1;
-    private static final String[] REQUIRED_PERMISSIONS = {
-            Manifest.permission.READ_MEDIA_AUDIO,
-            Manifest.permission.READ_MEDIA_IMAGES,
-            Manifest.permission.READ_MEDIA_VIDEO,
-            Manifest.permission.POST_NOTIFICATIONS,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,19 +89,6 @@ public class DrawLayoutActivity extends AppCompatActivity {
         defaultView();
         MusicPlay.setQuickPlayRunnable(quickPlay);
         sessionUtils = new SessionUtils(this);
-        List<String> permissionsNeeded = new ArrayList<>();
-
-        for (String permission : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                permissionsNeeded.add(permission);
-            }
-        }
-
-        if (!permissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this,
-                    permissionsNeeded.toArray(new String[0]),
-                    REQUEST_CODE_PERMISSIONS);
-        }
         playView();
     }
 

@@ -37,7 +37,6 @@ public class SessionUtils {
         @Override
         public void onPause() {
             musicPause();
-
         }
 
         @Override
@@ -109,53 +108,33 @@ public class SessionUtils {
         mSession.setActive(true);
         notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         controllerCompat = new MediaControllerCompat(activity,getSessionToken());
-        controllerCompat.registerCallback(mMediaControllerCallback);
+//        controllerCompat.registerCallback(mMediaControllerCallback);
     }
-
-
-    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
-        @Override
-        public void onPlaybackStateChanged(PlaybackStateCompat state) {
-            switch (state.getState()) {
-                case PlaybackStateCompat.STATE_NONE://无任何状态
-//                    imgPause.setImageResource(R.drawable.img_pause);
-                    break;
-                case PlaybackStateCompat.STATE_PLAYING:
-//                    imgPause.setImageResource(R.drawable.img_pause);
-                    break;
-                case PlaybackStateCompat.STATE_PAUSED:
-//                    imgPause.setImageResource(R.drawable.img_play);
-                    break;
-                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
-                    break;
-                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
-                    break;
-                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
-                    break;
-                case PlaybackStateCompat.STATE_REWINDING://快退
-                    break;
-            }
-        }
-
-        @Override
-        public void onMetadataChanged(MediaMetadataCompat metadata) {
-            super.onMetadataChanged(metadata);
-//            MusicTitle.setText(metadata.getString(MediaMetadataCompat.METADATA_KEY_TITLE));
-        }
-    };
-
-
-
-    public void setMetadata(MediaMetadataCompat metadata) {
-        mSession.setMetadata(metadata);
-    }
+//
+//    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
+//        @Override
+//        public void onPlaybackStateChanged(PlaybackStateCompat state) {
+//            switch (state.getState()) {
+//                case PlaybackStateCompat.STATE_NONE://无任何状态
+//                    break;
+//                case PlaybackStateCompat.STATE_PLAYING:
+//                    break;
+//                case PlaybackStateCompat.STATE_PAUSED:
+//                    break;
+//                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
+//                    break;
+//                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
+//                    break;
+//                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
+//                    break;
+//                case PlaybackStateCompat.STATE_REWINDING://快退
+//                    break;
+//            }
+//        }
+//    };
 
     public MediaSessionCompat.Token getSessionToken() {
         return mSession.getSessionToken();
-    }
-
-    public MediaSessionCompat getmSession() {
-        return mSession;
     }
 
     /**
@@ -218,14 +197,11 @@ public class SessionUtils {
                             .setShowActionsInCompactView(0, 1, 2));
 //            ((NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE)).notify(1, notification);
             notificationManager.notify(1, notificationCompat.build());
-
         }
         //播放新歌曲时需要更新seekbar的max与总秒数对应。保证每一秒seekbar会走动一格。回传到View层来更新时间
 //        this.seekBar.setMax(mMediaPlayer.getDuration() / 1000);
-
 //        updateSeekBar();
     }
-
 
     private Bitmap getBitmapFromDrawable(Drawable drawable) {
         final Bitmap bmp = Bitmap.createBitmap(drawable.getIntrinsicWidth(),

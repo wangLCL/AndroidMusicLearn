@@ -5,29 +5,27 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 
 public class PermissionUtils {
-    private static final String TAG = PermissionUtils.class.getSimpleName();
-    private static final String KEY_PREV_PERMISSIONS = "previous_permissions";
-    private static final String KEY_IGNORED_PERMISSIONS = "ignored_permissions";
-    private static Context context;
-    private static SharedPreferences sharedPreferences;
-    private static ArrayList<PermissionRequest> permissionRequests = new ArrayList<PermissionRequest>();
-
-    public static void init(Context context) {
-        sharedPreferences = context.getSharedPreferences("pl.tajchert.runtimepermissionhelper", Context.MODE_PRIVATE);
-        PermissionUtils.context = context;
-    }
-
-    //验证权限
-    public static boolean verifyPermissions(int[] grantResults) {
-        for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
+    //没有的权限存储起来  下落进行请求
+    public static ArrayList<String> requestPermission(Activity activity,String[] permissions,int code){
+        ArrayList<String> permissionsNeeded = new ArrayList<>();
+        for (String permission : permissions) {
+            if (hasPermission(activity, permission)) {
+                permissionsNeeded.add(permission);
             }
         }
-        return true;
+
+        if (!permissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity,
+                    permissionsNeeded.toArray(new String[0]),
+                    code);
+        }
+        return permissionsNeeded;
     }
 
     //是否含义这个权限

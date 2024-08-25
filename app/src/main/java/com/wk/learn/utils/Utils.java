@@ -1,4 +1,4 @@
-package com.wk.learn;
+package com.wk.learn.utils;
 
 import android.app.Activity;
 import android.util.Log;
