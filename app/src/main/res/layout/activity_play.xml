@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,39 +29,84 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_margin="20dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
+                android:id="@+id/song_name"
                 android:textSize="30dp"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/play">
+                android:text="歌曲名">
 
             </TextView>
             <TextView
+                android:id="@+id/art_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@id/song_name"
                 android:text="@string/play">
 
             </TextView>
-            <ImageView
-                android:src="@mipmap/ic_shuffle_white_36dp"
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
+
+            </SeekBar>
+            <TextView
+                android:id="@+id/song_play_time"
+                android:text="00:00"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-            </ImageView>
-            <ImageView
-                android:src="@mipmap/"
+            </TextView>
+            <TextView
+                android:id="@+id/song_duration"
+                android:text="00:00"
+                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-            </ImageView>
+            </TextView>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/play_pause"
+                android:src="@mipmap/ic_pause_black_36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+            </ImageView>
+            <ImageView
+                android:src="@drawable/baseline_skip_previous_36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/play_pause"
+                android:layout_centerVertical="true">
+
+            </ImageView>
+            <ImageView
+                android:src="@drawable/baseline_skip_next_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignRight="@id/play_pause">
+
+            </ImageView>
 
         </RelativeLayout>
     </LinearLayout>
