@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.wk.learn.R;
 import com.wk.learn.bean.MusicInfoBean;
 import com.wk.learn.play.MusicPlay;
+import com.wk.utilslib.utils.time.TimeUtils;
 
 public class PlayActivity extends AppCompatActivity {
     private Handler timeHandler;
@@ -40,7 +41,7 @@ public class PlayActivity extends AppCompatActivity {
         MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
         songName.setText(musicInfo.getTitle());
         artName.setText(musicInfo.getArtistName());
-        songDuration.setText(musicInfo.getDuration()+"");
+        songDuration.setText(TimeUtils.minutesAndSecond(musicInfo.getDuration()));
         playSeekBar.setMax(musicInfo.getDuration());
     }
 
@@ -54,7 +55,7 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public void run() {
                 long l = MusicPlay.currentPosition();
-                songPlayTime.setText(l+"");
+                songPlayTime.setText(TimeUtils.minutesAndSecond(l));
                 timeHandler.postDelayed(this,1000);
                 playSeekBar.setProgress((int) l);
             }
@@ -91,14 +92,6 @@ public class PlayActivity extends AppCompatActivity {
         Window window = getWindow();
         int color = getResources().getColor(R.color.transparent);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            /*
-            *             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            * */
-
             window.clearFlags( WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -129,7 +122,6 @@ public class PlayActivity extends AppCompatActivity {
             view.setBackgroundColor(color);
             contentView.addView(view);
         }
-
     }
 
     private static int getStatusBarHeight(Context context) {

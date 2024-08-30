@@ -70,7 +70,7 @@
 
             </SeekBar>
             <TextView
-                android:id="@+id/song_play_time"
+                android:id="@+id/song_duration"
                 android:text="00:00"
                 android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
@@ -79,7 +79,7 @@
 
             </TextView>
             <TextView
-                android:id="@+id/song_duration"
+                android:id="@+id/song_play_time"
                 android:text="00:00"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
