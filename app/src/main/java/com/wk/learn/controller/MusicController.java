@@ -10,6 +10,7 @@ import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.listener.MusicFocusChangeListener;
+import com.wk.learn.play.MusicPlay;
 import com.wk.learn.utils.SessionUtils;
 
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class MusicController extends Binder implements IMusicController{
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-
+                MusicPlay.playNext();
             }
         });
     }

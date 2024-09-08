@@ -1,6 +1,7 @@
 package com.wk.learn.activity;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,9 +35,11 @@ import com.wk.learn.fragment.PlayingQueueFragment;
 import com.wk.learn.fragment.SettingFragment;
 import com.wk.learn.fragment.SupportDevelopFragment;
 import com.wk.learn.fragment.base.BaseFragment;
+import com.wk.learn.listener.PlayStatusChangeListener;
 import com.wk.learn.play.MusicPlay;
 import com.wk.learn.utils.SessionUtils;
 import com.wk.utilslib.utils.permission.PermissionUtils;
+import com.wk.utilslib.utils.time.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,8 @@ public class DrawLayoutActivity extends AppCompatActivity {
     private NavigationView navView;
     private Runnable currentViewRunnable = null;
     private SessionUtils sessionUtils;
+    private Handler timeHandler;
+    private Runnable playRunnable;
     private Runnable quickPlay = new Runnable() {
         @Override
         public void run() {
@@ -53,10 +59,25 @@ public class DrawLayoutActivity extends AppCompatActivity {
             TextView songName = quickPlayView.findViewById(R.id.song_name);
             TextView artName = quickPlayView.findViewById(R.id.artist_name);
             ImageView playPause = quickPlayView.findViewById(R.id.play_pause);
-
+            SeekBar seekBar = quickPlayView.findViewById(R.id.seekBar);
             MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
+            if (musicInfo==null){
+                View relative = findViewById(R.id.bottom_view);
+                relative.setVisibility(View.GONE);
+                return;
+            }else {
+                View relative = findViewById(R.id.bottom_view);
+                if (relative.getVisibility() == View.GONE){
+                    // 设置动画
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(relative, "translationY",  relative.getHeight(), 0); // 向上移动200dp
+                    animator.setDuration(1000); // 动画持续时间1秒
+                    animator.start();
+                }
+                relative.setVisibility(View.VISIBLE);
+            }
             songName.setText(musicInfo.getTitle());
             artName.setText(musicInfo.getArtistName());
+            seekBar.setMax(musicInfo.getDuration());
             if (MusicPlay.isPlaying()){
                 playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
                 sessionUtils.musicPlay();
@@ -78,18 +99,47 @@ public class DrawLayoutActivity extends AppCompatActivity {
                     }
                 }
             });
+            if (timeHandler!=null){
+                if (playRunnable!=null) {
+                    timeHandler.removeCallbacks(playRunnable);
+                }
+            }
+            playRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    long l = MusicPlay.currentPosition();
+                    timeHandler.postDelayed(this,1000);
+                    seekBar.setProgress((int) l);
+                }
+            };
+            timeHandler.removeCallbacks(playRunnable);
+            timeHandler.postDelayed(playRunnable,0);
 
         }
     };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        timeHandler = new Handler();
         setContentView(R.layout.draw_layout_main);
         initDrawerLayout();
         defaultView();
         MusicPlay.setQuickPlayRunnable(quickPlay);
         sessionUtils = new SessionUtils(this);
         playView();
+        quickPlay.run();
+        SessionUtils.addPlayStatusChangeListener(new PlayStatusChangeListener() {
+            @Override
+            public void updateBtnStatus() {
+                View quickPlayView = findViewById(R.id.quick_play);
+                ImageView playPause = quickPlayView.findViewById(R.id.play_pause);
+                if (MusicPlay.isPlaying()) {
+                    playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
+                } else {
+                    playPause.setImageResource(R.mipmap.ic_play_arrow_black_36dp);
+                }
+            }
+        });
     }
 
     private void playView() {

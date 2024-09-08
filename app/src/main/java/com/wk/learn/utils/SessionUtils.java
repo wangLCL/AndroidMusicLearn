@@ -22,8 +22,11 @@ import androidx.media.session.MediaButtonReceiver;
 
 import com.wk.learn.R;
 import com.wk.learn.bean.MusicInfoBean;
+import com.wk.learn.listener.PlayStatusChangeListener;
 import com.wk.learn.play.MusicPlay;
 import com.wk.learn.service.MusicService;
+
+import java.util.ArrayList;
 
 public class SessionUtils {
     private MediaSessionCompat mSession;
@@ -32,6 +35,7 @@ public class SessionUtils {
     private NotificationManager notificationManager;
 
     public static MediaControllerCompat controllerCompat;
+    private static ArrayList<PlayStatusChangeListener> playStatusChangeListeners;
 
     private MediaSessionCompat.Callback mediasessionBack = new MediaSessionCompat.Callback() {
         @Override
@@ -88,6 +92,9 @@ public class SessionUtils {
         mSession.setPlaybackState(mPlaybackState);
         MusicPlay.continuePlay();
         updateNotification();
+        for (PlayStatusChangeListener playStatusChangeListener : playStatusChangeListeners) {
+            playStatusChangeListener.updateBtnStatus();
+        }
     }
 
     public void musicPause() {
@@ -97,6 +104,9 @@ public class SessionUtils {
                 .build();
         mSession.setPlaybackState(mPlaybackState);
         updateNotification();
+        for (PlayStatusChangeListener playStatusChangeListener : playStatusChangeListeners) {
+            playStatusChangeListener.updateBtnStatus();
+        }
     }
 
     public SessionUtils(Activity activity){
@@ -109,29 +119,16 @@ public class SessionUtils {
         notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         controllerCompat = new MediaControllerCompat(activity,getSessionToken());
 //        controllerCompat.registerCallback(mMediaControllerCallback);
+        this.playStatusChangeListeners = new ArrayList<>();
     }
-//
-//    private MediaControllerCompat.Callback mMediaControllerCallback = new MediaControllerCompat.Callback() {
-//        @Override
-//        public void onPlaybackStateChanged(PlaybackStateCompat state) {
-//            switch (state.getState()) {
-//                case PlaybackStateCompat.STATE_NONE://无任何状态
-//                    break;
-//                case PlaybackStateCompat.STATE_PLAYING:
-//                    break;
-//                case PlaybackStateCompat.STATE_PAUSED:
-//                    break;
-//                case PlaybackStateCompat.STATE_SKIPPING_TO_NEXT://下一首
-//                    break;
-//                case PlaybackStateCompat.STATE_SKIPPING_TO_PREVIOUS://上一首
-//                    break;
-//                case PlaybackStateCompat.STATE_FAST_FORWARDING://快进
-//                    break;
-//                case PlaybackStateCompat.STATE_REWINDING://快退
-//                    break;
-//            }
-//        }
-//    };
+
+    public static void addPlayStatusChangeListener(PlayStatusChangeListener listener){
+        playStatusChangeListeners.add(listener);
+    }
+
+    public static void removePlayStatusChangeListener(PlayStatusChangeListener listener){
+        playStatusChangeListeners.remove(listener);
+    }
 
     public MediaSessionCompat.Token getSessionToken() {
         return mSession.getSessionToken();

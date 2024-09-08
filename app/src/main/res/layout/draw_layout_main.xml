@@ -16,23 +16,38 @@
             android:id="@+id/content_root"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/relativeLayout"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="-5dp"/>
 
-        <View
+        <LinearLayout
+            android:id="@+id/bottom_view"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@drawable/layer_top"
-            app:layout_constraintBottom_toBottomOf="@+id/content_root"></View>
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <include layout="@layout/quick_play"></include>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@android:color/transparent">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/layer_top"
+                app:layout_constraintBottom_toBottomOf="@+id/content_root"></View>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <include layout="@layout/quick_play"></include>
+            </RelativeLayout>
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

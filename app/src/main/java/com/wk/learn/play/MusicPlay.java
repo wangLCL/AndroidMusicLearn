@@ -33,15 +33,16 @@ public class MusicPlay {
     }
 
     public static void setMusicData(int _position){
+        if (songList.size()<=0)return; // 应该不会，因为如果没有数据，本身就是不可以点的
         checkPlayService();
+        playIndex = _position % songList.size();
         MusicInfoBean musicInfoBean = songList.get(playIndex);
         if (currentPlayInfo!=null) {
             if (currentPlayInfo == musicInfoBean) {
                 return;
             }
         }
-        playIndex = _position % songList.size();
-        currentPlayInfo = songList.get(playIndex);
+        currentPlayInfo = musicInfoBean;
         musicController.setMusicData(currentPlayInfo.getPath());
     }
 
@@ -50,6 +51,8 @@ public class MusicPlay {
         musicController.play();
         quickPlayRunnable.run();
     }
+
+
 
     private static boolean checkPlayService(){
         if (musicController == null){
@@ -104,5 +107,9 @@ public class MusicPlay {
 
     public static long currentPosition(){
         return musicController.getCurrentPosition();
+    }
+
+    public static void setPosition(int progress) {
+        musicController.seekTo(progress);
     }
 }

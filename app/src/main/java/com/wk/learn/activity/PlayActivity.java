@@ -17,11 +17,14 @@ import android.widget.TextView;
 
 import com.wk.learn.R;
 import com.wk.learn.bean.MusicInfoBean;
+import com.wk.learn.listener.PlayStatusChangeListener;
 import com.wk.learn.play.MusicPlay;
+import com.wk.learn.utils.SessionUtils;
 import com.wk.utilslib.utils.time.TimeUtils;
 
 public class PlayActivity extends AppCompatActivity {
     private Handler timeHandler;
+    private SeekBar playSeekBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +32,24 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         showInfo();
         initListener();
+        SessionUtils.addPlayStatusChangeListener(new PlayStatusChangeListener() {
+            @Override
+            public void updateBtnStatus() {
+                updatePlayStatus();
+            }
+        });
+        updatePlayStatus();
     }
 
-    private SeekBar playSeekBar;
+    private void updatePlayStatus() {
+        ImageView playPause = findViewById(R.id.play_pause);
+        if (MusicPlay.isPlaying()){
+            playPause.setImageResource(R.mipmap.ic_play_arrow_black_36dp);
+        }else {
+            playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
+        }
+    }
+
 
     private void showInfo() {
         TextView songName       = findViewById(R.id.song_name);
@@ -39,10 +57,12 @@ public class PlayActivity extends AppCompatActivity {
         playSeekBar     = findViewById(R.id.play_seekbar);
         TextView songDuration   = findViewById(R.id.song_duration);
         MusicInfoBean musicInfo = MusicPlay.getMusicInfo();
-        songName.setText(musicInfo.getTitle());
-        artName.setText(musicInfo.getArtistName());
-        songDuration.setText(TimeUtils.minutesAndSecond(musicInfo.getDuration()));
-        playSeekBar.setMax(musicInfo.getDuration());
+        if (musicInfo!=null){
+            songName.setText(musicInfo.getTitle());
+            artName.setText(musicInfo.getArtistName());
+            songDuration.setText(TimeUtils.minutesAndSecond(musicInfo.getDuration()));
+            playSeekBar.setMax(musicInfo.getDuration());
+        }
     }
 
     public void initListener(){
@@ -65,8 +85,10 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (MusicPlay.isPlaying()){
                     MusicPlay.pause();
+                    playPause.setImageResource(R.mipmap.ic_play_arrow_black_36dp);
                 }else {
                     MusicPlay.play();
+                    playPause.setImageResource(R.mipmap.ic_pause_black_36dp);
                 }
                 showInfo();
             }
@@ -85,7 +107,31 @@ public class PlayActivity extends AppCompatActivity {
                 showInfo();
             }
         });
+        playSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser){
+                    MusicPlay.setPosition(progress);
+                }
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        findViewById(R.id.play_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void hideTop(){
