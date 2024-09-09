@@ -33,7 +33,7 @@ public class AlbumListFragment extends BaseFragment {
         }, new Runnable() {
             @Override
             public void run() {
-                songlistView.setAdapter(new AlbumListAdapter(albumInfoBeans));
+                songlistView.setAdapter(new AlbumListAdapter(albumInfoBeans,getContext()));
             }
         });
         commonLoadAsynTask.execute("");

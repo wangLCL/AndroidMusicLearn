@@ -1,5 +1,6 @@
 package com.wk.learn.adpter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +12,22 @@ import com.wk.learn.R;
 import com.wk.learn.adpter.holder.AlbumListHolder;
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.bean.AlbumInfoBean;
-import com.wk.learn.load.AlbumListLoader;
 
 import java.util.List;
 
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListHolder> {
     private List<AlbumInfoBean> albumInfoBeanList;
-    public AlbumListAdapter(List<AlbumInfoBean> albumInfoBeanList){
+    private Context context;
+    public AlbumListAdapter(List<AlbumInfoBean> albumInfoBeanList, Context context){
         this.albumInfoBeanList = albumInfoBeanList;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public AlbumListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(BaseApplication.context()).inflate(R.layout.album_item,parent,false);
-        AlbumListHolder albumListHolder = new AlbumListHolder(view);
+        AlbumListHolder albumListHolder = new AlbumListHolder(view,context);
         return albumListHolder;
     }
 
