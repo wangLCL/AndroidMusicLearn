@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wk.learn.R;
 import com.wk.learn.application.BaseApplication;
 import com.wk.learn.fragment.AboutFragment;
+import com.wk.learn.fragment.AlbumDetailFragment;
 
 public class AlbumListHolder extends RecyclerView.ViewHolder {
     private TextView albumArtistName;
@@ -31,7 +32,7 @@ public class AlbumListHolder extends RecyclerView.ViewHolder {
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                 Fragment fragment;
 
-                fragment = new AboutFragment().newInstance();
+                fragment = new AlbumDetailFragment().newInstance();
 
                 transaction.hide(((AppCompatActivity) context).
                         getSupportFragmentManager().findFragmentById(R.id.content_root));
