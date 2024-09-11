@@ -29,5 +29,13 @@
     <string name="song_title">song</string>
     <string name="album_title">album</string>
     <string name="artist_title">artist</string>
+    <string name="go_to_artist">go to artist</string>
+    <string name="add_to_queue">add to queue</string>
+    <string name="menu_sort_by">menu sort by</string>
+    <string name="sort_order_entry_az">a-z</string>
+    <string name="sort_order_entry_za">z-a\n</string>
+    <string name="sort_order_entry_year">year</string>
+    <string name="sort_order_entry_track_number">numer\n</string>
+    <string name="sort_order_entry_duration">dura</string>
 
 </resources>

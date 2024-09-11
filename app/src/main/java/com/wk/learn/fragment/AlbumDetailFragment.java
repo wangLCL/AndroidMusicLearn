@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumDetailFragment extends Fragment {
-
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     public static AlbumDetailFragment newInstance() {
         AlbumDetailFragment fragment = new AlbumDetailFragment();
         Bundle args = new Bundle();
@@ -59,6 +59,7 @@ public class AlbumDetailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); // 重要: 确保调用这个方法
     }
 
     @Nullable
@@ -71,6 +72,15 @@ public class AlbumDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        collapsingToolbarLayout.setTitle("collapsi");
+
+
         RecyclerView recyclerview = view.findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -86,6 +96,14 @@ public class AlbumDetailFragment extends Fragment {
             }
         });
         commonLoadAsynTask.execute("");
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.album_detail, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
